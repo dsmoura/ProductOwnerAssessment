@@ -1,0 +1,337 @@
+<title>Self-Assessment para Product Owners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one working column — profile summary, then radar + focus plan side by side, then the full competency map. "Avaliar" swaps the column for the rating form. */
+:root{
+  --ground:#F3F5F6; --surface:#FFFFFF; --ink:#14232B; --muted:#5B6B73; --line:#DCE3E6;
+  --accent:#0E6B73; --accent-soft:#D5ECEE; --prev:#9AA9B0;
+  --low:#C2493B; --mid:#C98A12; --high:#2E8A4F;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Figtree", "Segoe UI", system-ui, sans-serif;
+  --f-data:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F171B; --surface:#16222A; --ink:#E4ECEF; --muted:#93A4AC; --line:#26353D;
+    --accent:#4FC1C9; --accent-soft:#163A3F; --prev:#5E7079;
+    --low:#E9776A; --mid:#E5AE45; --high:#5CC383; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F171B; --surface:#16222A; --ink:#E4ECEF; --muted:#93A4AC; --line:#26353D;
+  --accent:#4FC1C9; --accent-soft:#163A3F; --prev:#5E7079;
+  --low:#E9776A; --mid:#E5AE45; --high:#5CC383; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;padding-inline:20px;padding-block:28px 48px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(26px,4vw,36px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:20px;font-weight:700}
+h3{font-size:15px;font-weight:700}
+.eyebrow{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.num{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between}
+header .by{color:var(--muted);font-size:13px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+select,input[type=date]{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 14px;font-weight:600}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line)}
+.tab{border:0;background:none;padding:10px 14px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+.banner{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;background:var(--accent-soft);border-radius:10px;padding:12px 16px;font-size:14px}
+
+.summary{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:4px}
+.tile .big{font-size:30px;font-weight:500}
+.tile .sub{font-size:13px;color:var(--muted)}
+.profile .big{font-family:var(--f-display);font-weight:700;font-size:24px;color:var(--accent)}
+.delta{font-family:var(--f-data);font-size:12.5px}
+.delta.up{color:var(--high)} .delta.down{color:var(--low)} .delta.flat{color:var(--muted)}
+
+.split{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.radar-box{overflow-x:auto}
+.radar{width:100%;max-width:460px;display:block;margin:0 auto}
+.radar text{fill:var(--muted);font-family:var(--f-body);font-size:11.5px}
+.radar .ax{stroke:var(--line)} .radar .ring{fill:none;stroke:var(--line)}
+.radar .cur{fill:var(--accent);fill-opacity:.16;stroke:var(--accent);stroke-width:2}
+.radar .prv{fill:none;stroke:var(--prev);stroke-width:1.5;stroke-dasharray:4 3}
+.radar .dot{fill:var(--accent)}
+.radar .tick{font-family:var(--f-data);font-size:10px}
+
+.focus{display:flex;flex-direction:column;gap:12px;margin:0;padding:0;list-style:none}
+.focus li{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.focus li:last-child{border-bottom:0;padding-bottom:0}
+.focus .score{grid-row:span 3;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-data);font-weight:500;color:var(--surface)}
+.focus .step{font-size:13px;color:var(--muted)}
+.focus .act{font-size:14px}
+.note{font-size:13px;color:var(--muted)}
+
+.map{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.domain{display:flex;flex-direction:column;gap:6px}
+.domain-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 92px 30px 34px;gap:8px;align-items:center;font-size:13.5px}
+.row .nm{overflow-wrap:anywhere}
+.tag{font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;vertical-align:1px}
+.bar{height:6px;background:var(--line);border-radius:3px;position:relative}
+.bar span{position:absolute;inset:0 auto 0 0;border-radius:3px}
+.bar b{position:absolute;top:-3px;width:2px;height:12px;background:var(--prev)}
+.row .v{text-align:right}
+
+/* rating form */
+.rate-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.progress{height:6px;background:var(--line);border-radius:3px;flex:1 1 200px;max-width:320px}
+.progress span{display:block;height:100%;background:var(--accent);border-radius:3px}
+.scale{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;font-size:12.5px}
+.scale div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.scale strong{display:block;font-family:var(--f-data);font-weight:500}
+.tier{display:flex;flex-direction:column;gap:12px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;align-items:center}
+.item .anchor{font-size:12.5px;color:var(--muted);grid-column:1}
+.seg{display:flex;gap:3px;grid-row:span 2;grid-column:2}
+.seg button{width:28px;height:30px;border:1px solid var(--line);background:var(--ground);border-radius:6px;font-family:var(--f-data);font-size:12.5px;padding:0}
+.seg button.prev{border-color:var(--prev);border-style:dashed}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+@media (max-width:860px){
+  .summary{grid-template-columns:1fr 1fr}
+  .split,.map{grid-template-columns:1fr}
+  .scale{grid-template-columns:repeat(3,1fr)}
+  .item{grid-template-columns:1fr}
+  .seg{grid-row:auto;grid-column:1;flex-wrap:wrap}
+}
+@media (max-width:420px){ .summary{grid-template-columns:1fr} .seg button{width:26px} }
+footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Protótipo de app</div>
+      <h1>Self-Assessment para Product Owners</h1>
+      <div class="by">Dionatan Moura · dionatanmoura.com</div>
+    </div>
+    <div class="controls">
+      <label class="eyebrow" for="pick">Avaliação</label>
+      <select id="pick"></select>
+      <button class="btn primary" id="newBtn" type="button">Nova avaliação</button>
+    </div>
+  </header>
+
+  <div class="banner" id="sampleBanner" hidden>
+    <span>Você está vendo <strong>duas avaliações de exemplo</strong>. Os números não são seus.</span>
+    <button class="btn" id="startOwn" type="button">Começar a minha</button>
+  </div>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-res" aria-selected="true" type="button">Resultado</button>
+    <button class="tab" role="tab" id="tab-rate" aria-selected="false" type="button">Avaliar</button>
+  </nav>
+
+  <section id="view-res" class="wrap" style="gap:16px"></section>
+  <section id="view-rate" class="wrap" style="gap:16px" hidden></section>
+
+  <footer>Copyright © Dionatan Moura. Todos os direitos reservados. O agrupamento em 8 áreas é uma proposta deste protótipo; a planilha original separa apenas Essenciais e Diferenciais. Dados ficam salvos só neste navegador.</footer>
+</div>
+
+<script>
+const DOMAINS = {
+  agil:{n:"Métodos Ágeis", p:"Guardião do Fluxo"},
+  estr:{n:"Estratégia de Produto", p:"Estrategista de Produto"},
+  back:{n:"Backlog & Requisitos", p:"Arquiteto de Backlog"},
+  user:{n:"Usuário & Discovery", p:"Explorador do Usuário"},
+  pess:{n:"Pessoas & Colaboração", p:"Conector"},
+  nego:{n:"Negócio & Dados", p:"Orientado a Resultados"},
+  muda:{n:"Escala & Mudança", p:"Agente de Mudança"},
+  entr:{n:"Qualidade & Entrega", p:"Parceiro da Engenharia"}
+};
+const RAW = [
+ ["E","agil","Manifesto Ágil"],["E","estr","Desenvolvimento de Produto"],["E","estr","Ciclo de Vida de Produto"],
+ ["E","estr","Dual Track Development (Discovery & Delivery)"],["E","agil","Scrum, Valores, Pilares, Artefatos, Papéis, Eventos"],
+ ["E","agil","Sprint"],["E","agil","Sprint Planning"],["E","agil","Daily"],["E","agil","Sprint Review"],["E","agil","Sprint Retrospective"],
+ ["E","agil","Backlog Refinement"],["E","pess","Trabalhando com Desenvolvedores de Produto"],["E","pess","Gestão de Stakeholders"],
+ ["E","estr","Visão de Produto"],["E","estr","Inception de Produto"],["E","estr","Roadmap de Produto"],["E","estr","Release Plan"],
+ ["E","estr","MVP Produto Mínimo Viável"],["E","user","User eXperience"],["E","user","Personas"],["E","back","Gestão de Backlog"],
+ ["E","back","Técnicas de Priorização de Backlog"],["E","back","Histórias de Usuário"],["E","back","Critérios de Aceitação"],
+ ["E","back","Dívida Técnica"],["E","user","Gestão de Feedback de Usuários"],["E","back","DoR Definition of Ready"],["E","back","DoD Definition of Done"],
+ ["D","pess","Negociação"],["D","pess","Resolução de Conflitos"],["D","pess","CNV Comunicação Não-Violenta"],["D","pess","Facilitação"],
+ ["D","nego","Business Agility"],["D","nego","Lean Startup"],["D","nego","Business Model Canvas"],["D","nego","Cultura Data-Driven"],
+ ["D","nego","OKRs Objectives and Key Results"],["D","nego","Testes A/B"],["D","muda","Ágil em Escala"],["D","muda","Gerenciamento de Projetos"],
+ ["D","muda","Change Management"],["D","muda","ADKAR"],["D","muda","Lean Change Management"],["D","user","Design Thinking"],
+ ["D","user","Design Sprint"],["D","user","Lean Inception"],["D","entr","Agile Testing"],["D","entr","BDD Behaviour-Driven Development"],
+ ["D","nego","Métricas de Eficácia, Produto e Usuário"],["D","nego","Métricas de Eficiência"],["D","agil","Planning Poker"],
+ ["D","agil","Método Kanban"],["D","agil","eXtreme Programming"],["D","agil","Management 3.0"],["D","agil","Lean"],
+ ["D","entr","DevOps"],["D","entr","Entrega Contínua"],["D","entr","Feature Toggles"]
+];
+const SKILLS = RAW.map(([t,d,n],i)=>({id:"s"+i,tier:t,domain:d,name:n}));
+const LEVELS = [
+  {min:0,max:0,t:"Desconheço",a:"Comece pelo básico: um artigo ou vídeo introdutório e um resumo de uma página."},
+  {min:1,max:2,t:"Já ouvi falar",a:"Estude os conceitos e explique-os com suas palavras para alguém do time."},
+  {min:3,max:4,t:"Conheço a teoria",a:"Aplique em uma situação real na próxima sprint, mesmo que pequena."},
+  {min:5,max:6,t:"Aplico com apoio",a:"Pratique sem apoio e peça feedback ao time após cada uso."},
+  {min:7,max:8,t:"Aplico com autonomia",a:"Compartilhe: facilite uma sessão ou mentore alguém nesse tema."},
+  {min:9,max:10,t:"Ensino e influencio",a:"Referência no tema. Mantenha e ajude a organização a evoluir."}
+];
+const level = v => LEVELS.find(l=>v>=l.min&&v<=l.max);
+const color = v => v==null?"var(--line)":v<5?"var(--low)":v<7?"var(--mid)":"var(--high)";
+const fmt = v => v==null?"–":(Math.round(v*10)/10).toFixed(1).replace(".",",");
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function sample(){
+  let seed=7; const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
+  const base={agil:7,estr:5,back:7,user:4,pess:6,nego:3,muda:2,entr:4};
+  const a={}, b={};
+  SKILLS.forEach(s=>{
+    const v=Math.max(0,Math.min(10,Math.round(base[s.domain]+(rnd()*4-2))));
+    a[s.id]=v; b[s.id]=Math.min(10,v+(rnd()<.45?Math.ceil(rnd()*2):0));
+  });
+  return {sample:true,current:"b",assessments:[
+    {id:"a",date:"2026-03-12",scores:a},{id:"b",date:"2026-09-18",scores:b}]};
+}
+let state;
+try{ state=JSON.parse(localStorage.getItem("po-assess-v1")) }catch(e){}
+if(!state||!state.assessments||!state.assessments.length) state=sample();
+const save=()=>{ try{ localStorage.setItem("po-assess-v1",JSON.stringify(state)) }catch(e){} };
+
+const sorted=()=>[...state.assessments].sort((x,y)=>x.date.localeCompare(y.date));
+const cur=()=>state.assessments.find(a=>a.id===state.current)||sorted().at(-1);
+const prevOf=a=>{const s=sorted();const i=s.findIndex(x=>x.id===a.id);return i>0?s[i-1]:null};
+const avg=(sc,f)=>{const v=SKILLS.filter(f).map(s=>sc[s.id]).filter(v=>v!=null);return v.length?v.reduce((p,c)=>p+c,0)/v.length:null};
+const dateBR=d=>{const [y,m,dd]=d.split("-");return `${dd}/${m}/${y}`};
+
+function deltaHTML(now,before){
+  if(now==null||before==null) return `<span class="delta flat">sem comparação</span>`;
+  const d=now-before, cls=d>0.05?"up":d<-0.05?"down":"flat";
+  return `<span class="delta ${cls}">${d>0?"+":""}${fmt(d)} vs. anterior</span>`;
+}
+
+function radar(sc,pv){
+  const keys=Object.keys(DOMAINS), cx=230, cy=200, R=130, n=keys.length;
+  const pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+Math.cos(a)*R*v/10, cy+Math.sin(a)*R*v/10]};
+  const vals=k=>avg(sc,s=>s.domain===k)??0;
+  let g="";
+  [2,4,6,8,10].forEach(r=>{g+=`<polygon class="ring" points="${keys.map((_,i)=>pt(i,r).join(",")).join(" ")}"/>`;});
+  [5,10].forEach(r=>{const [x,y]=pt(0,r);g+=`<text class="tick" x="${x+4}" y="${y+3}">${r}</text>`});
+  keys.forEach((k,i)=>{
+    const [x,y]=pt(i,10); g+=`<line class="ax" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/>`;
+    const [lx,ly]=pt(i,11.6), anchor=Math.abs(lx-cx)<8?"middle":lx>cx?"start":"end";
+    g+=`<text x="${lx}" y="${ly+4}" text-anchor="${anchor}">${esc(DOMAINS[k].n)}</text>`;
+  });
+  if(pv) g+=`<polygon class="prv" points="${keys.map((k,i)=>pt(i,avg(pv,s=>s.domain===k)??0).join(",")).join(" ")}"/>`;
+  g+=`<polygon class="cur" points="${keys.map((k,i)=>pt(i,vals(k)).join(",")).join(" ")}"/>`;
+  keys.forEach((k,i)=>{const [x,y]=pt(i,vals(k));g+=`<circle class="dot" cx="${x}" cy="${y}" r="3.5"/>`});
+  return `<svg class="radar" viewBox="0 0 460 400" role="img" aria-label="Média por área, escala 0 a 10">${g}</svg>`;
+}
+
+function renderResult(){
+  const a=cur(), p=prevOf(a), sc=a.scores, ps=p?.scores;
+  const eAvg=avg(sc,s=>s.tier==="E"), dAvg=avg(sc,s=>s.tier==="D");
+  const rated=SKILLS.filter(s=>sc[s.id]!=null).length;
+  const strong=SKILLS.filter(s=>sc[s.id]>=7).length;
+  const domAvg=Object.keys(DOMAINS).map(k=>[k,avg(sc,s=>s.domain===k)]).filter(x=>x[1]!=null).sort((x,y)=>y[1]-x[1]);
+  const top=domAvg[0], weak=domAvg.at(-1);
+  const gaps=SKILLS.filter(s=>s.tier==="E"&&sc[s.id]!=null&&sc[s.id]<5).length;
+
+  const focus=SKILLS.filter(s=>sc[s.id]!=null&&sc[s.id]<9)
+    .sort((x,y)=>(x.tier===y.tier?0:x.tier==="E"?-1:1)||sc[x.id]-sc[y.id]).slice(0,3);
+
+  const el=document.getElementById("view-res");
+  if(!rated){ el.innerHTML=`<div class="panel"><h2>Nenhuma competência avaliada ainda</h2><p class="note">Abra a aba Avaliar e dê uma nota de 0 a 10 para cada competência. O resultado aparece aqui.</p><div><button class="btn primary" type="button" onclick="show('rate')">Avaliar agora</button></div></div>`; return; }
+
+  el.innerHTML=`
+  <div class="summary">
+    <div class="tile profile"><span class="eyebrow">Seu perfil hoje</span>
+      <span class="big">${top?esc(DOMAINS[top[0]].p):"–"}</span>
+      <span class="sub">Ponto mais forte em ${top?esc(DOMAINS[top[0]].n):"–"}. Maior oportunidade em ${weak?esc(DOMAINS[weak[0]].n):"–"}.</span></div>
+    <div class="tile"><span class="eyebrow">Essenciais</span><span class="big num">${fmt(eAvg)}</span>${deltaHTML(eAvg,ps&&avg(ps,s=>s.tier==="E"))}</div>
+    <div class="tile"><span class="eyebrow">Diferenciais</span><span class="big num">${fmt(dAvg)}</span>${deltaHTML(dAvg,ps&&avg(ps,s=>s.tier==="D"))}</div>
+    <div class="tile"><span class="eyebrow">Com autonomia (7+)</span><span class="big num">${strong}<span class="sub"> / ${rated}</span></span><span class="sub">${rated<SKILLS.length?`${SKILLS.length-rated} sem nota`:"todas avaliadas"}</span></div>
+  </div>
+  <div class="split">
+    <div class="panel">
+      <div><h2>Mapa de competências</h2><p class="note">Média de cada área em ${dateBR(a.date)}, escala 0 a 10.</p></div>
+      <div class="radar-box">${radar(sc,ps)}</div>
+      <div class="legend"><span><i style="background:var(--accent)"></i>${dateBR(a.date)}</span>${p?`<span><i style="background:var(--prev)"></i>${dateBR(p.date)}</span>`:""}</div>
+    </div>
+    <div class="panel">
+      <div><h2>Plano de foco</h2><p class="note">${gaps?`Você tem ${gaps} essencial${gaps>1?"is":""} abaixo de 5. Essenciais vêm primeiro.`:"Essenciais acima de 5. O foco agora pode ir para os diferenciais."}</p></div>
+      <ol class="focus">${focus.map(s=>{const v=sc[s.id],l=level(v),nx=LEVELS[LEVELS.indexOf(l)+1];return `
+        <li><span class="score" style="background:${color(v)}">${v}</span>
+          <h3>${esc(s.name)}<span class="tag">${s.tier==="E"?"ESSENCIAL":"DIFERENCIAL"}</span></h3>
+          <span class="step">De “${l.t}” para “${nx?nx.t:l.t}”</span>
+          <span class="act">${l.a}</span></li>`}).join("")}</ol>
+    </div>
+  </div>
+  <div class="panel">
+    <div><h2>Todas as competências</h2><p class="note">Barra = nota atual. Traço cinza = avaliação anterior.</p></div>
+    <div class="map">${Object.entries(DOMAINS).map(([k,d])=>{
+      const list=SKILLS.filter(s=>s.domain===k);return `<div class="domain">
+        <div class="domain-head"><h3>${esc(d.n)}</h3><span class="num">${fmt(avg(sc,s=>s.domain===k))}</span></div>
+        ${list.map(s=>{const v=sc[s.id],pv=ps?.[s.id];return `<div class="row">
+          <span class="nm">${esc(s.name)}${s.tier==="D"?'<span class="tag">D</span>':""}</span>
+          <span class="bar"><span style="width:${(v??0)*10}%;background:${color(v)}"></span>${pv!=null?`<b style="left:calc(${pv*10}% - 1px)"></b>`:""}</span>
+          <span class="v num">${v??"–"}</span>
+          <span class="delta ${v==null||pv==null||v===pv?"flat":v>pv?"up":"down"}">${v!=null&&pv!=null&&v!==pv?(v>pv?"+":"")+(v-pv):""}</span></div>`}).join("")}
+      </div>`}).join("")}</div>
+  </div>`;
+}
+
+function renderRate(){
+  const a=cur(), p=prevOf(a), sc=a.scores;
+  const rated=SKILLS.filter(s=>sc[s.id]!=null).length;
+  const el=document.getElementById("view-rate");
+  const item=s=>{const v=sc[s.id],pv=p?.scores[s.id];return `<div class="item" data-id="${s.id}">
+      <h3>${esc(s.name)}</h3>
+      <div class="seg" role="group" aria-label="Nota para ${esc(s.name)}">${[...Array(11).keys()].map(n=>
+        `<button type="button" data-v="${n}" aria-pressed="${v===n}" class="${pv===n&&v!==n?"prev":""}" ${pv===n?'title="Nota anterior"':""}>${n}</button>`).join("")}</div>
+      <span class="anchor">${v!=null?`${level(v).t}`:"Sem nota"}${pv!=null?` · antes: ${pv}`:""}</span></div>`};
+  el.innerHTML=`
+  <div class="rate-head">
+    <div class="controls"><label class="eyebrow" for="dateIn">Data</label><input type="date" id="dateIn" value="${a.date}"></div>
+    <div class="controls" style="flex:1 1 260px;justify-content:flex-end"><span class="num note">${rated} de ${SKILLS.length} avaliadas</span><div class="progress"><span style="width:${rated/SKILLS.length*100}%"></span></div></div>
+  </div>
+  <div class="scale">${LEVELS.map(l=>`<div><strong>${l.min===l.max?l.min:l.min+"–"+l.max}</strong>${l.t}</div>`).join("")}</div>
+  ${[["E","Conhecimentos Essenciais"],["D","Conhecimentos Diferenciais"]].map(([t,n])=>`
+    <div class="tier"><h2>${n}</h2>${SKILLS.filter(s=>s.tier===t).map(item).join("")}</div>`).join("")}`;
+  el.querySelector("#dateIn").onchange=e=>{ if(e.target.value){a.date=e.target.value;save();fillPick();} };
+  el.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{
+    const id=b.closest(".item").dataset.id, v=+b.dataset.v;
+    sc[id]=sc[id]===v?null:v; save();
+    const y=window.scrollY; renderRate(); window.scrollTo(0,y);
+  });
+}
+
+function fillPick(){
+  const s=sorted().reverse();
+  document.getElementById("pick").innerHTML=s.map(a=>`<option value="${a.id}" ${a.id===cur().id?"selected":""}>${dateBR(a.date)}</option>`).join("");
+  document.getElementById("sampleBanner").hidden=!state.sample;
+}
+let view="res";
+function show(v){
+  view=v;
+  document.getElementById("tab-res").setAttribute("aria-selected",v==="res");
+  document.getElementById("tab-rate").setAttribute("aria-selected",v==="rate");
+  document.getElementById("view-res").hidden=v!=="res";
+  document.getElementById("view-rate").hidden=v!=="rate";
+  v==="res"?renderResult():renderRate();
+}
+function newAssessment(fresh){
+  if(fresh) state={sample:false,assessments:[]};
+  const id="a"+Date.now(), today=new Date().toISOString().slice(0,10);
+  state.assessments.push({id,date:today,scores:{}}); state.current=id; save(); fillPick(); show("rate");
+}
+document.getElementById("tab-res").onclick=()=>show("res");
+document.getElementById("tab-rate").onclick=()=>show("rate");
+document.getElementById("pick").onchange=e=>{state.current=e.target.value;save();show(view)};
+document.getElementById("newBtn").onclick=()=>newAssessment(state.sample);
+document.getElementById("startOwn").onclick=()=>newAssessment(true);
+fillPick(); show("res");
+</script>
