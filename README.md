@@ -4,9 +4,13 @@ Web app version of the *Self-Assessment para Product Owners©* spreadsheet by Di
 ([dionatanmoura.com](https://dionatanmoura.com)). A Product Owner rates 58 skills from 0 to 10, gets a profile, a
 skill map and a focus plan, and tracks progress across assessments.
 
+**Live app: https://dsmoura.github.io/ProductOwnerAssessment/**
+
 The original spreadsheet is kept in the repo root and is the source of truth for the skill list.
 
 ## Run it
+
+On Windows, double-click `run.bat`. Otherwise:
 
 ```bash
 npm install
@@ -16,7 +20,8 @@ npm run build      # type-check + production build in dist/
 npm run preview    # serve dist/ at http://localhost:4173
 ```
 
-`dist/` is a static site. It can be hosted on any static host (Netlify, Vercel, GitHub Pages, S3).
+`dist/` is a static site. Every push to `main` runs the tests, builds and deploys it to GitHub Pages
+(`.github/workflows/deploy.yml`).
 
 ## Features
 
