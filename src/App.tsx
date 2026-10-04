@@ -58,15 +58,6 @@ export default function App() {
     })
   }
 
-  function setNote(skillId: string, note: string) {
-    updateCurrent((a) => {
-      const notes = { ...a.notes }
-      if (note.trim()) notes[skillId] = note
-      else delete notes[skillId]
-      return { ...a, notes }
-    })
-  }
-
   function newAssessment() {
     const fresh = blankAssessment()
     setData((d) => ({
@@ -164,7 +155,6 @@ export default function App() {
             current={current}
             previous={previous}
             onScore={setScore}
-            onNote={setNote}
             onDate={(date) => updateCurrent((a) => ({ ...a, date }))}
             onDone={() => setTab('result')}
           />

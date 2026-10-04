@@ -47,8 +47,6 @@ export const en: Dict = {
     previousHint: 'Score in the previous assessment',
     scoreFor: (name) => `Score for ${name}`,
     clearHint: 'Click a score again to clear it.',
-    evidenceLabel: 'A recent example of applying this (optional)',
-    evidencePlaceholder: 'e.g. I led the quarterly prioritisation with WSJF',
     allDone: 'Every skill has a score.',
     seeResult: 'See results',
   },

@@ -28,7 +28,7 @@ npm run preview    # serve dist/ at http://localhost:4173
 
 | Area | What it does |
 | --- | --- |
-| Rate | 0–10 per skill with behavioural anchors (0 Desconheço → 9–10 Ensino e influencio), previous score shown as a dashed hint, optional evidence note for scores of 7+, "show unrated only" filter |
+| Rate | 0–10 per skill with behavioural anchors (0 Desconheço → 9–10 Ensino e influencio), previous score shown as a dashed hint, "show unrated only" filter |
 | Results | Profile name from the strongest area, Essentials/Advanced averages with change vs. previous, radar of 10 areas, 3-item focus plan (essentials first), all 93 skills with previous-score markers |
 | Progress | Averages over time, per-area comparison, biggest gains and drops |
 | Data | Import the original `.xlsx` (each date column becomes an assessment), JSON backup and restore, delete an assessment |

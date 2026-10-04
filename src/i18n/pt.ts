@@ -45,8 +45,6 @@ export const pt = {
     previousHint: 'Nota da avaliação anterior',
     scoreFor: (name: string) => `Nota para ${name}`,
     clearHint: 'Clique de novo na nota para apagá-la.',
-    evidenceLabel: 'Exemplo recente em que você aplicou isso (opcional)',
-    evidencePlaceholder: 'Ex.: conduzi a priorização do trimestre com WSJF',
     allDone: 'Todas as competências têm nota.',
     seeResult: 'Ver resultado',
   },

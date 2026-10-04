@@ -41,7 +41,7 @@ export function parseAssessmentRows(rows: unknown[][]): XlsxImport {
 
   const filled = columns.filter((c) => Object.values(c.scores).some((v) => v > 0))
   return {
-    assessments: filled.map((c) => ({ id: newId(), date: c.date, scores: c.scores, notes: {} })),
+    assessments: filled.map((c) => ({ id: newId(), date: c.date, scores: c.scores })),
     emptyColumns: columns.length - filled.length,
   }
 }

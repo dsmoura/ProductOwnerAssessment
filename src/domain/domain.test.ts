@@ -79,7 +79,7 @@ describe('stored data', () => {
         { id: 'y', date: 'yesterday', scores: {} },
       ],
     })
-    expect(parsed?.assessments).toEqual([{ id: 'x', date: '2026-01-02', scores: { mvp: 7 }, notes: { mvp: 'ok' } }])
+    expect(parsed?.assessments).toEqual([{ id: 'x', date: '2026-01-02', scores: { mvp: 7 } }])
     expect(parseAppData({ hello: 1 })).toBeNull()
   })
 })

@@ -8,7 +8,6 @@ type Props = {
   current: Assessment
   previous?: Assessment
   onScore: (skillId: string, value: number | null) => void
-  onNote: (skillId: string, note: string) => void
   onDate: (date: string) => void
   onDone: () => void
 }
@@ -18,7 +17,7 @@ const SCALE = Array.from({ length: 11 }, (_, i) => i)
 // Skills of the same area sit together inside each tier; the stable sort keeps catalogue order within an area.
 const BY_AREA = [...SKILLS].sort((a, b) => DOMAIN_IDS.indexOf(a.domain) - DOMAIN_IDS.indexOf(b.domain))
 
-export function RateView({ current, previous, onScore, onNote, onDate, onDone }: Props) {
+export function RateView({ current, previous, onScore, onDate, onDone }: Props) {
   const { t, l } = useI18n()
   const [onlyUnrated, setOnlyUnrated] = useState(false)
   const sc = current.scores
@@ -92,19 +91,6 @@ export function RateView({ current, previous, onScore, onNote, onDate, onDone }:
                     </button>
                   ))}
                 </div>
-                {v !== undefined && v >= 7 && (
-                  <label className="evidence">
-                    <span>{t.rate.evidenceLabel}</span>
-                    <input
-                      id={`note-${s.id}`}
-                      type="text"
-                      maxLength={500}
-                      value={current.notes[s.id] ?? ''}
-                      placeholder={t.rate.evidencePlaceholder}
-                      onChange={(e) => onNote(s.id, e.target.value)}
-                    />
-                  </label>
-                )}
               </div>
             )
           })}

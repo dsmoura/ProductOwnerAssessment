@@ -6,8 +6,6 @@ export type Assessment = {
   /** ISO date, YYYY-MM-DD */
   date: string
   scores: Scores
-  /** Optional evidence per skill ("when did I last apply this?") */
-  notes: Record<string, string>
 }
 
 export type AppData = {
@@ -19,7 +17,6 @@ export type AppData = {
 }
 
 const STORAGE_KEY = 'po-self-assessment:v1'
-const MAX_NOTE = 500
 
 export const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8)
 
@@ -40,7 +37,7 @@ export function previousOf(data: AppData, assessment: Assessment): Assessment | 
   return i > 0 ? sorted[i - 1] : undefined
 }
 
-export const blankAssessment = (date = todayISO()): Assessment => ({ id: newId(), date, scores: {}, notes: {} })
+export const blankAssessment = (date = todayISO()): Assessment => ({ id: newId(), date, scores: {} })
 
 const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v)
 
@@ -53,11 +50,7 @@ export function parseAppData(raw: unknown): AppData | null {
     for (const [k, v] of Object.entries(isRecord(a.scores) ? a.scores : {})) {
       if (SKILL_IDS.has(k) && typeof v === 'number' && v >= 0 && v <= 10) scores[k] = Math.round(v)
     }
-    const notes: Record<string, string> = {}
-    for (const [k, v] of Object.entries(isRecord(a.notes) ? a.notes : {})) {
-      if (SKILL_IDS.has(k) && typeof v === 'string' && v.trim()) notes[k] = v.slice(0, MAX_NOTE)
-    }
-    return [{ id: typeof a.id === 'string' && a.id ? a.id : newId(), date: a.date, scores, notes }]
+    return [{ id: typeof a.id === 'string' && a.id ? a.id : newId(), date: a.date, scores }]
   })
   if (!assessments.length) return null
   const currentId = assessments.some((a) => a.id === raw.currentId) ? (raw.currentId as string) : undefined
@@ -100,13 +93,8 @@ export function sampleData(): AppData {
     isSample: true,
     currentId: 'sample-2',
     assessments: [
-      { id: 'sample-1', date: '2026-03-12', scores: first, notes: {} },
-      {
-        id: 'sample-2',
-        date: '2026-09-18',
-        scores: second,
-        notes: { 'backlog-prioritization': 'Conduzi a priorização do trimestre com WSJF junto aos stakeholders.' },
-      },
+      { id: 'sample-1', date: '2026-03-12', scores: first },
+      { id: 'sample-2', date: '2026-09-18', scores: second },
     ],
   }
 }

@@ -481,7 +481,7 @@ export async function renderPdfReport(data: AppData, txt: CardText): Promise<Blo
     })
     y = Math.max(leftEnd, ry) + 10
 
-    // All skills, with evidence notes under each skill
+    // All skills
     heading(t.result.allTitle)
     paragraph(t.result.allNote, 8)
     y += 3
@@ -501,12 +501,9 @@ export async function renderPdfReport(data: AppData, txt: CardText): Promise<Blo
       for (const s of SKILLS_ESSENTIALS_FIRST.filter((sk) => sk.domain === d)) {
         const v = sc[s.id]
         const pv = ps?.[s.id]
-        const note = a.notes[s.id]
         font(8.5)
         const lines = wrap(l(s.name), nameW - (s.tier === 'A' ? 7 : 0))
-        font(7.5, 'italic')
-        const noteLines = note ? wrap(note, nameW - 3) : []
-        const rowH = lines.length * lh(8.5) + noteLines.length * lh(7.5) + 1.4
+        const rowH = lines.length * lh(8.5) + 1.4
         ensure(rowH)
         const base = y + lh(8.5) * 0.78
         font(8.5)
@@ -532,10 +529,6 @@ export async function renderPdfReport(data: AppData, txt: CardText): Promise<Blo
         if (diff) {
           font(8, 'normal', diff > 0 ? C.high : C.low)
           write(`${diff > 0 ? '+' : ''}${diff}`, M + CW, base, 'right')
-        }
-        if (noteLines.length) {
-          font(7.5, 'italic', C.muted)
-          noteLines.forEach((line, i) => write(line, M + 3, base + (lines.length - 1) * lh(8.5) + (i + 1) * lh(7.5)))
         }
         y += rowH
       }
