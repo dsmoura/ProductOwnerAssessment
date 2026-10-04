@@ -10,7 +10,7 @@
   --accent-soft: #d5ecee;
   --on-accent: #ffffff;
   --prev: #9aa9b0;
-  --series-d: #6b4fa0;
+  --series-a: #6b4fa0;
   --low: #c2493b;
   --mid: #b87b0c;
   --high: #2e8a4f;
@@ -32,7 +32,7 @@
     --accent-soft: #163a3f;
     --on-accent: #0b1a1e;
     --prev: #5e7079;
-    --series-d: #b39ae6;
+    --series-a: #b39ae6;
     --low: #e9776a;
     --mid: #e5ae45;
     --high: #5cc383;
@@ -192,10 +192,10 @@ select, input[type='date'], input[type='text'] {
 .trend .end-label { font-family: var(--f-data); font-size: 12px; }
 .series-e polyline { stroke: var(--accent); }
 .series-e circle, .series-e .end-label { fill: var(--accent); }
-.series-d polyline { stroke: var(--series-d); }
-.series-d circle, .series-d .end-label { fill: var(--series-d); }
+.series-a polyline { stroke: var(--series-a); }
+.series-a circle, .series-a .end-label { fill: var(--series-a); }
 .swatch.series-e { background: var(--accent); }
-.swatch.series-d { background: var(--series-d); }
+.swatch.series-a { background: var(--series-a); }
 .area-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .area-table th, .area-table td { padding: 7px 8px; border-bottom: 1px solid var(--line); text-align: left; }
 .area-table thead th { font-size: 12px; color: var(--muted); font-weight: 600; }

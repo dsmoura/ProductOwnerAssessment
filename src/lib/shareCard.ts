@@ -81,7 +81,7 @@ export async function renderShareCard(scores: Scores, date: string, txt: CardTex
 
   const stats: [string, number | null][] = [
     [t.card.essentials, tierAverage(scores, 'E')],
-    [t.card.differentials, tierAverage(scores, 'D')],
+    [t.card.advanced, tierAverage(scores, 'A')],
   ]
   stats.forEach(([label, value], i) => {
     const sx = x0 + i * 250

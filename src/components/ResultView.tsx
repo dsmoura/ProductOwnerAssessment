@@ -19,6 +19,9 @@ import { Delta, scoreColor } from './ui'
 
 type Props = { current: Assessment; previous?: Assessment; onRate: () => void }
 
+// Within each area, essentials come before advanced skills; the stable sort keeps catalogue order inside a tier.
+const ESSENTIALS_FIRST = [...SKILLS].sort((a, b) => Number(a.tier === 'A') - Number(b.tier === 'A'))
+
 export function ResultView({ current, previous, onRate }: Props) {
   const i18n = useI18n()
   const { t, l, formatScore, formatDate } = i18n
@@ -43,7 +46,7 @@ export function ResultView({ current, previous, onRate }: Props) {
 
   const profile = profileFor(sc)
   const eAvg = tierAverage(sc, 'E')
-  const dAvg = tierAverage(sc, 'D')
+  const aAvg = tierAverage(sc, 'A')
   const strong = SKILLS.filter((s) => sc[s.id] >= 7).length
   const gaps = essentialGaps(sc)
   const focus = focusPlan(sc)
@@ -78,9 +81,9 @@ export function ResultView({ current, previous, onRate }: Props) {
           <Delta now={eAvg} before={ps && tierAverage(ps, 'E')} />
         </div>
         <div className="tile">
-          <span className="eyebrow">{t.tierShort.D}</span>
-          <span className="big num">{formatScore(dAvg)}</span>
-          <Delta now={dAvg} before={ps && tierAverage(ps, 'D')} />
+          <span className="eyebrow">{t.tierShort.A}</span>
+          <span className="big num">{formatScore(aAvg)}</span>
+          <Delta now={aAvg} before={ps && tierAverage(ps, 'A')} />
         </div>
         <div className="tile">
           <span className="eyebrow">{t.result.autonomous}</span>
@@ -159,7 +162,7 @@ export function ResultView({ current, previous, onRate }: Props) {
                 <h3>{l(DOMAINS[d].name)}</h3>
                 <span className="num">{formatScore(domainAverage(sc, d))}</span>
               </div>
-              {SKILLS.filter((s) => s.domain === d).map((s) => {
+              {ESSENTIALS_FIRST.filter((s) => s.domain === d).map((s) => {
                 const v = sc[s.id]
                 const pv = ps?.[s.id]
                 const diff = v !== undefined && pv !== undefined ? v - pv : 0
@@ -167,7 +170,7 @@ export function ResultView({ current, previous, onRate }: Props) {
                   <div className="row" key={s.id}>
                     <span className="nm">
                       {l(s.name)}
-                      {s.tier === 'D' && <span className="tag">D</span>}
+                      {s.tier === 'A' && <span className="tag">A</span>}
                     </span>
                     <span className="bar">
                       <span style={{ width: `${(v ?? 0) * 10}%`, background: scoreColor(v) }} />

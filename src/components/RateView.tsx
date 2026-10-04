@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Assessment } from '../domain/data'
-import { DOMAINS, LEVELS, SKILLS, type Tier } from '../domain/skills'
+import { DOMAIN_IDS, DOMAINS, LEVELS, SKILLS, type Tier } from '../domain/skills'
 import { levelFor, ratedCount } from '../domain/scoring'
 import { useI18n } from '../i18n'
 
@@ -14,6 +14,9 @@ type Props = {
 }
 
 const SCALE = Array.from({ length: 11 }, (_, i) => i)
+
+// Skills of the same area sit together inside each tier; the stable sort keeps catalogue order within an area.
+const BY_AREA = [...SKILLS].sort((a, b) => DOMAIN_IDS.indexOf(a.domain) - DOMAIN_IDS.indexOf(b.domain))
 
 export function RateView({ current, previous, onScore, onNote, onDate, onDone }: Props) {
   const { t, l } = useI18n()
@@ -58,10 +61,10 @@ export function RateView({ current, previous, onScore, onNote, onDate, onDone }:
       </div>
       <p className="note">{t.rate.clearHint}</p>
 
-      {(['E', 'D'] as Tier[]).map((tier) => (
+      {(['E', 'A'] as Tier[]).map((tier) => (
         <section className="tier" key={tier}>
           <h2>{t.tiers[tier]}</h2>
-          {SKILLS.filter((s) => s.tier === tier && visible(s.id)).map((s) => {
+          {BY_AREA.filter((s) => s.tier === tier && visible(s.id)).map((s) => {
             const v = sc[s.id]
             const pv = previous?.scores[s.id]
             const name = l(s.name)

@@ -14,7 +14,7 @@ function TrendChart({ list }: { list: Assessment[] }) {
   const y = (v: number) => PAD.t + (1 - v / 10) * (H - PAD.t - PAD.b)
   const series = [
     { key: 'E' as const, cls: 'series-e', label: t.tierShort.E },
-    { key: 'D' as const, cls: 'series-d', label: t.tierShort.D },
+    { key: 'A' as const, cls: 'series-a', label: t.tierShort.A },
   ]
   // Thin out date labels so they never overlap.
   const every = Math.ceil(list.length / 6)

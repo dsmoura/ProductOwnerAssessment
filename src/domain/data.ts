@@ -1,4 +1,4 @@
-import { SKILLS, SKILL_IDS } from './skills'
+import { SKILLS, SKILL_IDS, type DomainId } from './skills'
 import type { Scores } from './scoring'
 
 export type Assessment = {
@@ -85,8 +85,8 @@ export function saveData(data: AppData) {
 export function sampleData(): AppData {
   let seed = 7
   const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280
-  const base: Record<string, number> = {
-    agile: 7, strategy: 5, backlog: 7, discovery: 4, people: 6, business: 3, change: 2, delivery: 4,
+  const base: Record<DomainId, number> = {
+    agile: 7, strategy: 5, backlog: 7, discovery: 4, people: 6, business: 3, change: 2, delivery: 4, metrics: 3, ai: 2,
   }
   const first: Scores = {}
   const second: Scores = {}

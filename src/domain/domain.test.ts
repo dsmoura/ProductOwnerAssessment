@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { readSheet } from 'read-excel-file/node'
-import { SKILLS } from './skills'
+import { DOMAIN_IDS, NEW_SKILLS, SHEET_SKILLS, SKILLS } from './skills'
 import { biggestChanges, essentialGaps, focusPlan, levelFor, profileFor, tierAverage, type Scores } from './scoring'
 import { parseAppData, sampleData } from './data'
 import { parseAssessmentRows } from './importXlsx'
@@ -9,16 +9,23 @@ const ORIGINAL = 'Self-Assessment para Product Owners© - DionatanMoura.com.xlsx
 const allScores = (v: number): Scores => Object.fromEntries(SKILLS.map((sk) => [sk.id, v]))
 
 describe('catalogue', () => {
-  it('has the 28 essentials and 30 differentials of the original spreadsheet', () => {
-    expect(SKILLS.filter((s) => s.tier === 'E')).toHaveLength(28)
-    expect(SKILLS.filter((s) => s.tier === 'D')).toHaveLength(30)
+  it('keeps the 58 skills of the original spreadsheet and has unique ids', () => {
+    expect(SHEET_SKILLS).toHaveLength(58)
     expect(new Set(SKILLS.map((s) => s.id)).size).toBe(SKILLS.length)
   })
 
-  it('matches every skill name in the original spreadsheet', async () => {
+  it('has essential and advanced skills in every area', () => {
+    for (const d of DOMAIN_IDS) {
+      expect(SKILLS.some((s) => s.domain === d && s.tier === 'E')).toBe(true)
+      expect(SKILLS.some((s) => s.domain === d && s.tier === 'A')).toBe(true)
+    }
+  })
+
+  it('matches every spreadsheet skill name, and no added skill collides with a spreadsheet row', async () => {
     const rows = await readSheet(ORIGINAL, '1. Assessment')
     const names = rows.map((r) => r[1]).filter((v): v is string => typeof v === 'string')
-    for (const sk of SKILLS) expect(names).toContain(sk.name.pt)
+    for (const sk of SHEET_SKILLS) expect(names).toContain(sk.name.pt)
+    for (const sk of NEW_SKILLS) expect(names).not.toContain(sk.name.pt)
   })
 })
 
@@ -26,7 +33,7 @@ describe('scoring', () => {
   it('averages a tier and ignores unrated skills', () => {
     const scores: Scores = { 'agile-manifesto': 8, scrum: 4, negotiation: 10 }
     expect(tierAverage(scores, 'E')).toBe(6)
-    expect(tierAverage(scores, 'D')).toBe(10)
+    expect(tierAverage(scores, 'A')).toBe(10)
     expect(tierAverage({}, 'E')).toBeNull()
   })
 
@@ -36,7 +43,7 @@ describe('scoring', () => {
     expect(levelFor(10).title.en).toBe('Teach and influence')
   })
 
-  it('puts low essentials before low differentials, and skips 9+', () => {
+  it('puts low essentials before low advanced skills, and skips 9+', () => {
     const scores: Scores = { ...allScores(9), negotiation: 1, dod: 6, mvp: 4, 'agile-manifesto': 8 }
     expect(focusPlan(scores).map((s) => s.id)).toEqual(['mvp', 'dod', 'negotiation'])
     expect(focusPlan(allScores(10))).toEqual([])

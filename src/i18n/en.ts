@@ -9,9 +9,9 @@ export const en: Dict = {
   tabs: { result: 'Results', rate: 'Rate', history: 'Progress', data: 'Data' },
   sampleBanner: 'You are looking at two example assessments. These are not your numbers.',
   startOwn: 'Start mine',
-  tiers: { E: 'Essential Knowledge', D: 'Differentiating Knowledge' },
-  tierShort: { E: 'Essentials', D: 'Differentials' },
-  tag: { E: 'ESSENTIAL', D: 'DIFFERENTIAL' },
+  tiers: { E: 'Essential Knowledge', A: 'Advanced Knowledge' },
+  tierShort: { E: 'Essentials', A: 'Advanced' },
+  tag: { E: 'ESSENTIAL', A: 'ADVANCED' },
   vsPrevious: 'vs. previous',
   noComparison: 'no comparison',
   result: {
@@ -55,7 +55,7 @@ export const en: Dict = {
   history: {
     title: 'Averages over time',
     needTwo: 'Complete at least two assessments to see your progress. Use “New assessment” in a few months.',
-    chartLabel: 'Essentials and differentials averages by date',
+    chartLabel: 'Essentials and advanced averages by date',
     byArea: 'By area',
     area: 'Area',
     gains: 'Biggest gains',
@@ -87,10 +87,10 @@ export const en: Dict = {
     sampleNote: 'Replaces your current data with the example assessments. Export a backup first if you want to keep yours.',
   },
   footer:
-    'Copyright © Dionatan Moura. All rights reserved. The 8-area grouping and the scale descriptions are this app’s proposal; the original spreadsheet only separates Essentials and Differentials.',
+    'Copyright © Dionatan Moura. All rights reserved. The 10-area grouping, the Essential/Advanced balance, the skills beyond the original spreadsheet’s 58 and the scale descriptions are this app’s proposal.',
   card: {
     eyebrow: 'SELF-ASSESSMENT FOR PRODUCT OWNERS',
     essentials: 'Essentials',
-    differentials: 'Differentials',
+    advanced: 'Advanced',
   },
 }

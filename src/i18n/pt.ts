@@ -7,9 +7,9 @@ export const pt = {
   tabs: { result: 'Resultado', rate: 'Avaliar', history: 'Evolução', data: 'Dados' },
   sampleBanner: 'Você está vendo duas avaliações de exemplo. Os números não são seus.',
   startOwn: 'Começar a minha',
-  tiers: { E: 'Conhecimentos Essenciais', D: 'Conhecimentos Diferenciais' },
-  tierShort: { E: 'Essenciais', D: 'Diferenciais' },
-  tag: { E: 'ESSENCIAL', D: 'DIFERENCIAL' },
+  tiers: { E: 'Conhecimentos Essenciais', A: 'Conhecimentos Avançados' },
+  tierShort: { E: 'Essenciais', A: 'Avançados' },
+  tag: { E: 'ESSENCIAL', A: 'AVANÇADO' },
   vsPrevious: 'vs. anterior',
   noComparison: 'sem comparação',
   result: {
@@ -53,7 +53,7 @@ export const pt = {
   history: {
     title: 'Evolução das médias',
     needTwo: 'Faça pelo menos duas avaliações para ver a evolução. Use “Nova avaliação” daqui a alguns meses.',
-    chartLabel: 'Médias de Essenciais e Diferenciais por data',
+    chartLabel: 'Médias de Essenciais e Avançados por data',
     byArea: 'Por área',
     area: 'Área',
     gains: 'Maiores avanços',
@@ -85,11 +85,11 @@ export const pt = {
     sampleNote: 'Substitui os dados atuais pelas avaliações de exemplo. Exporte um backup antes se quiser manter os seus.',
   },
   footer:
-    'Copyright © Dionatan Moura. Todos os direitos reservados. O agrupamento em 8 áreas e as descrições da escala são propostas deste app; a planilha original separa apenas Essenciais e Diferenciais.',
+    'Copyright © Dionatan Moura. Todos os direitos reservados. O agrupamento em 10 áreas, o equilíbrio entre Essenciais e Avançados, as competências além das 58 da planilha original e as descrições da escala são propostas deste app.',
   card: {
     eyebrow: 'SELF-ASSESSMENT PARA PRODUCT OWNERS',
     essentials: 'Essenciais',
-    differentials: 'Diferenciais',
+    advanced: 'Avançados',
   },
 }
 

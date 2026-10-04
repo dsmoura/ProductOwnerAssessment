@@ -43,7 +43,7 @@ export function profileFor(scores: Scores): Profile {
 
 /**
  * Skills to work on next. Anything below 7 (not yet autonomous) comes first, essentials before
- * differentials; within a group the lowest score wins. Skills at 9–10 are never suggested.
+ * advanced; within a group the lowest score wins. Skills at 9–10 are never suggested.
  */
 export function focusPlan(scores: Scores, count = 3): Skill[] {
   const bucket = (sk: Skill) => (scores[sk.id] >= 7 ? 2 : sk.tier === 'E' ? 0 : 1)
