@@ -3,6 +3,7 @@ import { parseAppData, todayISO, type AppData, type Assessment } from '../domain
 import { importXlsxFile } from '../domain/importXlsx'
 import { useI18n } from '../i18n'
 import { downloadBlob } from '../lib/download'
+import { PdfReportButton } from './ui'
 
 type Props = {
   data: AppData
@@ -81,6 +82,7 @@ export function DataView({ data, current, onReplace, onAddAssessments, onDelete,
             <button className="btn" type="button" onClick={exportJson}>
               {t.data.exportJson}
             </button>
+            <PdfReportButton data={data} />
             <label className="btn file-btn">
               {t.data.importJson}
               <input id="import-json" type="file" accept=".json,application/json" onChange={pickJson} />

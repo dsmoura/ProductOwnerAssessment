@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import type { Assessment } from '../domain/data'
-import { DOMAIN_IDS, DOMAINS, SKILLS } from '../domain/skills'
+import type { AppData, Assessment } from '../domain/data'
+import { DOMAIN_IDS, DOMAINS, SKILLS, SKILLS_ESSENTIALS_FIRST } from '../domain/skills'
 import {
   domainAverage,
   essentialGaps,
@@ -15,14 +15,11 @@ import { useI18n } from '../i18n'
 import { downloadBlob } from '../lib/download'
 import { renderShareCard } from '../lib/shareCard'
 import { Radar } from './Radar'
-import { Delta, scoreColor } from './ui'
+import { Delta, PdfReportButton, scoreColor } from './ui'
 
-type Props = { current: Assessment; previous?: Assessment; onRate: () => void }
+type Props = { data: AppData; current: Assessment; previous?: Assessment; onRate: () => void }
 
-// Within each area, essentials come before advanced skills; the stable sort keeps catalogue order inside a tier.
-const ESSENTIALS_FIRST = [...SKILLS].sort((a, b) => Number(a.tier === 'A') - Number(b.tier === 'A'))
-
-export function ResultView({ current, previous, onRate }: Props) {
+export function ResultView({ data, current, previous, onRate }: Props) {
   const i18n = useI18n()
   const { t, l, formatScore, formatDate } = i18n
   const [busy, setBusy] = useState(false)
@@ -102,9 +99,12 @@ export function ResultView({ current, previous, onRate }: Props) {
               <h2>{t.result.mapTitle}</h2>
               <p className="note">{t.result.mapNote(formatDate(current.date))}</p>
             </div>
-            <button className="btn" type="button" onClick={shareCard} disabled={busy}>
-              {t.result.shareCard}
-            </button>
+            <div className="controls">
+              <button className="btn" type="button" onClick={shareCard} disabled={busy}>
+                {t.result.shareCard}
+              </button>
+              <PdfReportButton data={data} />
+            </div>
           </div>
           <div className="radar-box">
             <Radar scores={sc} previous={ps} />
@@ -162,7 +162,7 @@ export function ResultView({ current, previous, onRate }: Props) {
                 <h3>{l(DOMAINS[d].name)}</h3>
                 <span className="num">{formatScore(domainAverage(sc, d))}</span>
               </div>
-              {ESSENTIALS_FIRST.filter((s) => s.domain === d).map((s) => {
+              {SKILLS_ESSENTIALS_FIRST.filter((s) => s.domain === d).map((s) => {
                 const v = sc[s.id]
                 const pv = ps?.[s.id]
                 const diff = v !== undefined && pv !== undefined ? v - pv : 0

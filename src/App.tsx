@@ -158,7 +158,7 @@ export default function App() {
       </nav>
 
       <main id="tab-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className="view">
-        {tab === 'result' && <ResultView current={current} previous={previous} onRate={() => setTab('rate')} />}
+        {tab === 'result' && <ResultView data={data} current={current} previous={previous} onRate={() => setTab('rate')} />}
         {tab === 'rate' && (
           <RateView
             current={current}

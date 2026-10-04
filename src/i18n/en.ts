@@ -88,6 +88,13 @@ export const en: Dict = {
   },
   footer:
     'Copyright © Dionatan Moura. All rights reserved. The 10-area grouping, the Essential/Advanced balance, the skills beyond the original spreadsheet’s 58 and the scale descriptions are this app’s proposal.',
+  pdf: {
+    download: 'Download report (PDF)',
+    generating: 'Creating PDF…',
+    generated: (date) => `Created on ${date}`,
+    count: (n) => (n === 1 ? '1 assessment' : `${n} assessments`),
+    heading: (date) => `Assessment on ${date}`,
+  },
   card: {
     eyebrow: 'SELF-ASSESSMENT FOR PRODUCT OWNERS',
     essentials: 'Essentials',

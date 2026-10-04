@@ -3,7 +3,7 @@ import { domainAverage, profileFor, tierAverage, type Scores } from '../domain/s
 import type { Dict } from '../i18n/pt'
 import { axisPoint, labelLayout } from './radarGeometry'
 
-type CardText = {
+export type CardText = {
   t: Dict
   l: (text: { pt: string; en: string }) => string
   formatScore: (v: number | null) => string

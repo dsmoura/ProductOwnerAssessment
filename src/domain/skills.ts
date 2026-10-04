@@ -157,6 +157,9 @@ export const SKILLS: Skill[] = [...SHEET_SKILLS, ...NEW_SKILLS]
 
 export const SKILL_IDS = new Set(SKILLS.map((sk) => sk.id))
 
+// Within each area, essentials come before advanced skills; the stable sort keeps catalogue order inside a tier.
+export const SKILLS_ESSENTIALS_FIRST = [...SKILLS].sort((a, b) => Number(a.tier === 'A') - Number(b.tier === 'A'))
+
 export type Level = { min: number; max: number; title: Localized; action: Localized }
 
 // Behavioural anchors for the 0–10 scale, so a "6" means the same thing to everyone.

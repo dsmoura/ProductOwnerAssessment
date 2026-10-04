@@ -1,4 +1,7 @@
+import { useState } from 'react'
+import { todayISO, type AppData } from '../domain/data'
 import { useI18n } from '../i18n'
+import { downloadBlob } from '../lib/download'
 
 export const scoreColor = (v: number | null | undefined) =>
   v === null || v === undefined ? 'var(--line)' : v < 5 ? 'var(--low)' : v < 7 ? 'var(--mid)' : 'var(--high)'
@@ -16,5 +19,28 @@ export function Delta({ now, before, suffix = true }: { now: number | null; befo
       {formatScore(d)}
       {suffix && ` ${t.vsPrevious}`}
     </span>
+  )
+}
+
+/** Downloads a PDF with every assessment. The PDF code (and jsPDF) loads only on first click. */
+export function PdfReportButton({ data }: { data: AppData }) {
+  const i18n = useI18n()
+  const [busy, setBusy] = useState(false)
+
+  async function exportPdf() {
+    setBusy(true)
+    try {
+      const { renderPdfReport } = await import('../lib/pdfReport')
+      const blob = await renderPdfReport(data, i18n)
+      downloadBlob(blob, `po-self-assessment-report-${todayISO()}.pdf`)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <button className="btn" type="button" onClick={exportPdf} disabled={busy}>
+      {busy ? i18n.t.pdf.generating : i18n.t.pdf.download}
+    </button>
   )
 }

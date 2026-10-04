@@ -86,6 +86,13 @@ export const pt = {
   },
   footer:
     'Copyright © Dionatan Moura. Todos os direitos reservados. O agrupamento em 10 áreas, o equilíbrio entre Essenciais e Avançados, as competências além das 58 da planilha original e as descrições da escala são propostas deste app.',
+  pdf: {
+    download: 'Baixar relatório (PDF)',
+    generating: 'Gerando PDF…',
+    generated: (date: string) => `Gerado em ${date}`,
+    count: (n: number) => (n === 1 ? '1 avaliação' : `${n} avaliações`),
+    heading: (date: string) => `Avaliação de ${date}`,
+  },
   card: {
     eyebrow: 'SELF-ASSESSMENT PARA PRODUCT OWNERS',
     essentials: 'Essenciais',
