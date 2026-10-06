@@ -1,12 +1,12 @@
 # Self-Assessment para Product Owners
 
 Web app version of the *Self-Assessment para Product Owners©* spreadsheet by Dionatan Moura
-([dionatanmoura.com](https://dionatanmoura.com)). A Product Owner rates 93 skills from 0 to 10, gets a profile, a
+([dionatanmoura.com](https://dionatanmoura.com)). A Product Owner rates 86 skills from 0 to 10, gets a profile, a
 skill map and a focus plan, and tracks progress across assessments.
 
 **Live app: https://dsmoura.github.io/ProductOwnerAssessment/**
 
-The original spreadsheet is kept in the repo root and is the source of truth for its 58 skills. The app adds 35 more
+The original spreadsheet is kept in the repo root and is the source of truth for its 58 skills. The app keeps 49 of them (Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência and Cultura Data-Driven, Gestão de Feedback de Usuários, Sprint and Daily were dropped) and adds 37 more
 (product management, project management, software engineering, CX & metrics, AI).
 
 ## Run it
@@ -28,8 +28,9 @@ npm run preview    # serve dist/ at http://localhost:4173
 
 | Area | What it does |
 | --- | --- |
-| Rate | 0–10 per skill with behavioural anchors (0 Desconheço → 9–10 Ensino e influencio), previous score shown as a dashed hint, "show unrated only" filter |
-| Results | Profile name from the strongest area, Essentials/Advanced averages with change vs. previous, radar of 10 areas, 3-item focus plan (essentials first), all 93 skills with previous-score markers |
+| Home | Landing page with "Start new assessment"; returning users can continue an unfinished assessment or open their latest results; first-time visitors can open an example |
+| Rate | One area per step (10 steps), 0–10 per skill with behavioural anchors (0 Desconheço → 9–10 Aplico com maestria), previous score shown as a dashed hint, clickable area stepper, sticky Back/Next |
+| Results | Profile name from the strongest area, Essentials/Advanced averages with change vs. previous, radar of 10 areas, 3-item focus plan (essentials first), all 86 skills with previous-score markers, "Save your results" block (PDF report, JSON backup, share card) |
 | Progress | Averages over time, per-area comparison, biggest gains and drops |
 | Data | Import the original `.xlsx` (each date column becomes an assessment), JSON backup and restore, delete an assessment |
 | Share | 1200×630 PNG card (LinkedIn/Open Graph size) |
@@ -42,7 +43,7 @@ Data is stored in the browser's `localStorage` only. There are no accounts or se
 ```
 src/
   domain/          pure logic, no React
-    skills.ts      58 spreadsheet skills (same order) + 35 added, 10 areas, scale anchors
+    skills.ts      49 spreadsheet skills (same order) + 37 added, 10 areas, scale anchors
     scoring.ts     averages, profile, focus plan, changes
     data.ts        data model, validation, localStorage, example data
     importXlsx.ts  original spreadsheet importer
@@ -50,17 +51,17 @@ src/
   i18n/            pt.ts is the reference dictionary; en.ts must match its shape
   lib/             radar geometry (shared by SVG and the PNG card), share card, download
   components/      one component per tab + Radar
-  App.tsx          state and tab routing (#rate, #history, #data)
+  App.tsx          state and screen routing (home, #result, #rate, #history, #data)
 ```
 
 ## Decisions to review
 
 - **The 10-area grouping and the profile names** are this app's proposal. The spreadsheet only splits Essenciais
   (28) and Diferenciais (30). Change them in `src/domain/skills.ts`.
-- **Every area has Essential and Advanced skills** (50 / 43); a test enforces it. Diferenciais are shown as
+- **Every area has Essential and Advanced skills** (47 / 39); a test enforces it. Diferenciais are shown as
   Avançados, and eight spreadsheet skills changed tier to balance the areas (see the comment on `SHEET_SKILLS`).
   Tier and area averages are recomputed, so past assessments show the new grouping too.
-- **The 35 added skills are not in the spreadsheet**, so the `.xlsx` import leaves them unrated. Older assessments
+- **The 37 added skills are not in the spreadsheet**, so the `.xlsx` import leaves them unrated. Older assessments
   simply have them unrated; averages ignore unrated skills.
 - **Scale anchors and focus-plan actions** are generic per level. Per-skill content (articles, courses, exercises)
   is the next step for the focus plan.

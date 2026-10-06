@@ -1,4 +1,4 @@
-import { SKILLS } from './skills'
+import { SKILLS, sheetLabel } from './skills'
 import { newId, type Assessment } from './data'
 import type { Scores } from './scoring'
 
@@ -9,7 +9,7 @@ const normalize = (text: string) =>
     .toLowerCase()
     .replace(/[^a-z0-9]/g, '')
 
-const SKILL_BY_NAME = new Map(SKILLS.map((sk) => [normalize(sk.name.pt), sk.id]))
+const SKILL_BY_NAME = new Map(SKILLS.map((sk) => [normalize(sheetLabel(sk)), sk.id]))
 
 const toISODate = (d: Date) => d.toISOString().slice(0, 10)
 
@@ -18,7 +18,7 @@ export type XlsxImport = { assessments: Assessment[]; emptyColumns: number }
 /**
  * Reads rows from sheet "1. Assessment" of the original spreadsheet. The first row holding date
  * cells is the header: each date column becomes one assessment. Rows are matched to skills by
- * their Portuguese name, so the importer tolerates moved rows and extra columns.
+ * their spreadsheet label (see `sheetLabel`), so the importer tolerates moved rows and extra columns.
  * Columns where every score is 0 are the untouched template and are skipped.
  */
 export function parseAssessmentRows(rows: unknown[][]): XlsxImport {

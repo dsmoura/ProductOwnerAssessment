@@ -1,9 +1,8 @@
 import { useState, type ChangeEvent } from 'react'
-import { parseAppData, todayISO, type AppData, type Assessment } from '../domain/data'
+import { parseAppData, type AppData, type Assessment } from '../domain/data'
 import { importXlsxFile } from '../domain/importXlsx'
 import { useI18n } from '../i18n'
-import { downloadBlob } from '../lib/download'
-import { PdfReportButton } from './ui'
+import { JsonBackupButton, PdfReportButton } from './ui'
 
 type Props = {
   data: AppData
@@ -22,11 +21,6 @@ export function DataView({ data, current, onReplace, onAddAssessments, onDelete,
   const [pendingRestore, setPendingRestore] = useState<AppData | null>(null)
   const [confirmingDelete, setConfirmingDelete] = useState(false)
   const [confirmingSample, setConfirmingSample] = useState(false)
-
-  function exportJson() {
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
-    downloadBlob(blob, `po-self-assessment-backup-${todayISO()}.json`)
-  }
 
   async function pickJson(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -79,9 +73,7 @@ export function DataView({ data, current, onReplace, onAddAssessments, onDelete,
           <h2>{t.data.backupTitle}</h2>
           <p className="note">{t.data.localNote}</p>
           <div className="controls">
-            <button className="btn" type="button" onClick={exportJson}>
-              {t.data.exportJson}
-            </button>
+            <JsonBackupButton data={data} />
             <PdfReportButton data={data} />
             <label className="btn file-btn">
               {t.data.importJson}

@@ -15,7 +15,7 @@ import { useI18n } from '../i18n'
 import { downloadBlob } from '../lib/download'
 import { renderShareCard } from '../lib/shareCard'
 import { Radar } from './Radar'
-import { Delta, PdfReportButton, scoreColor } from './ui'
+import { Delta, JsonBackupButton, PdfReportButton, scoreColor } from './ui'
 
 type Props = { data: AppData; current: Assessment; previous?: Assessment; onRate: () => void }
 
@@ -92,19 +92,27 @@ export function ResultView({ data, current, previous, onRate }: Props) {
         </div>
       </div>
 
+      {!data.isSample && (
+        <section className="panel save">
+          <div>
+            <h2>{t.result.saveTitle}</h2>
+            <p className="note">{t.result.saveNote}</p>
+          </div>
+          <div className="controls">
+            <PdfReportButton data={data} primary />
+            <JsonBackupButton data={data} />
+            <button className="btn" type="button" onClick={shareCard} disabled={busy}>
+              {t.result.shareCard}
+            </button>
+          </div>
+        </section>
+      )}
+
       <div className="split">
         <section className="panel">
-          <div className="panel-head">
-            <div>
-              <h2>{t.result.mapTitle}</h2>
-              <p className="note">{t.result.mapNote(formatDate(current.date))}</p>
-            </div>
-            <div className="controls">
-              <button className="btn" type="button" onClick={shareCard} disabled={busy}>
-                {t.result.shareCard}
-              </button>
-              <PdfReportButton data={data} />
-            </div>
+          <div>
+            <h2>{t.result.mapTitle}</h2>
+            <p className="note">{t.result.mapNote(formatDate(current.date))}</p>
           </div>
           <div className="radar-box">
             <Radar scores={sc} previous={ps} />

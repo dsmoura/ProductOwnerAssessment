@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { readSheet } from 'read-excel-file/node'
-import { DOMAIN_IDS, NEW_SKILLS, SHEET_SKILLS, SKILLS } from './skills'
+import { DOMAIN_IDS, NEW_SKILLS, SHEET_SKILLS, SKILLS, sheetLabel } from './skills'
 import { biggestChanges, essentialGaps, focusPlan, levelFor, profileFor, tierAverage, type Scores } from './scoring'
 import { parseAppData, sampleData } from './data'
 import { parseAssessmentRows } from './importXlsx'
@@ -9,8 +9,8 @@ const ORIGINAL = 'Self-Assessment para Product Owners© - DionatanMoura.com.xlsx
 const allScores = (v: number): Scores => Object.fromEntries(SKILLS.map((sk) => [sk.id, v]))
 
 describe('catalogue', () => {
-  it('keeps the 58 skills of the original spreadsheet and has unique ids', () => {
-    expect(SHEET_SKILLS).toHaveLength(58)
+  it('keeps 49 of the 58 skills of the original spreadsheet and has unique ids', () => {
+    expect(SHEET_SKILLS).toHaveLength(49)
     expect(new Set(SKILLS.map((s) => s.id)).size).toBe(SKILLS.length)
   })
 
@@ -24,7 +24,7 @@ describe('catalogue', () => {
   it('matches every spreadsheet skill name, and no added skill collides with a spreadsheet row', async () => {
     const rows = await readSheet(ORIGINAL, '1. Assessment')
     const names = rows.map((r) => r[1]).filter((v): v is string => typeof v === 'string')
-    for (const sk of SHEET_SKILLS) expect(names).toContain(sk.name.pt)
+    for (const sk of SHEET_SKILLS) expect(names).toContain(sheetLabel(sk))
     for (const sk of NEW_SKILLS) expect(names).not.toContain(sk.name.pt)
   })
 })
@@ -40,7 +40,7 @@ describe('scoring', () => {
   it('maps scores to behavioural anchors', () => {
     expect(levelFor(0).title.en).toBe('Unfamiliar')
     expect(levelFor(6).title.en).toBe('Apply with support')
-    expect(levelFor(10).title.en).toBe('Teach and influence')
+    expect(levelFor(10).title.en).toBe('Apply with mastery')
   })
 
   it('puts low essentials before low advanced skills, and skips 9+', () => {
