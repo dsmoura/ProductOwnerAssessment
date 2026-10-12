@@ -110,47 +110,49 @@ export const SHEET_SKILLS: Skill[] = [
 ]
 
 // Skills added by the app (not in the spreadsheet, so the xlsx import leaves them unrated).
+// docs/pesquisa-skills-po.md has the research behind these additions, merges and tiers.
 export const NEW_SKILLS: Skill[] = [
+  s('product-goal', 'E', 'agile', 'Product Goal & Sprint Goal', 'Product Goal & Sprint Goal'),
+
   s('product-strategy', 'A', 'strategy', 'Estratégia e Posicionamento de Produto', 'Product Strategy & Positioning'),
   s('outcome-roadmap', 'A', 'strategy', 'Roadmap Orientado a Resultados', 'Outcome-Based Roadmap'),
-  s('benchmarking', 'A', 'strategy', 'Benchmarking & Pesquisa', 'Benchmarking & Research'),
 
+  s('invest', 'E', 'backlog', 'INVEST', 'INVEST'),
   s('story-mapping', 'A', 'backlog', 'User Story Mapping', 'User Story Mapping'),
   s('cost-of-delay', 'A', 'backlog', 'Cost of Delay & WSJF', 'Cost of Delay & WSJF'),
 
   s('user-interviews', 'E', 'discovery', 'Entrevistas com Usuários', 'User Interviews'),
   s('usability-testing', 'E', 'discovery', 'Testes de Usabilidade', 'Usability Testing'),
   s('prototyping', 'E', 'discovery', 'Prototipação', 'Prototyping'),
+  s('hypotheses-experiments', 'E', 'discovery', 'Hipóteses & Experimentos', 'Hypotheses & Experiments'),
   s('jtbd', 'A', 'discovery', 'Jobs to Be Done', 'Jobs to Be Done'),
   s('continuous-discovery', 'A', 'discovery', 'Continuous Discovery & Opportunity Solution Tree', 'Continuous Discovery & Opportunity Solution Tree'),
 
+  s('communication', 'E', 'people', 'Comunicação & Storytelling', 'Communication & Storytelling'),
+
   s('business-case', 'E', 'business', 'Business Case & ROI', 'Business Case & ROI'),
-  s('market-analysis', 'E', 'business', 'Análise de Mercado e Concorrência', 'Market & Competitive Analysis'),
-  s('pricing', 'A', 'business', 'Precificação & Monetização', 'Pricing & Monetization'),
-  s('go-to-market', 'A', 'business', 'Go-to-Market', 'Go-to-Market'),
-  s('plg', 'A', 'business', 'Product-Led Growth', 'Product-Led Growth'),
-  s('unit-economics', 'A', 'business', 'Unit Economics (CAC, LTV, Margem)', 'Unit Economics (CAC, LTV, Margin)'),
+  s('market-analysis', 'E', 'business', 'Análise de Mercado, Concorrência & Benchmarking', 'Market, Competitive Analysis & Benchmarking'),
+  s('domain-knowledge', 'E', 'business', 'Conhecimento do Domínio de Negócio', 'Business Domain Knowledge'),
+  s('pricing', 'A', 'business', 'Precificação, Monetização & Unit Economics', 'Pricing, Monetization & Unit Economics'),
+  s('go-to-market', 'A', 'business', 'Go-to-Market & Product-Led Growth', 'Go-to-Market & Product-Led Growth'),
 
   s('risk-management', 'E', 'change', 'Gestão de Riscos', 'Risk Management'),
   s('dependency-management', 'E', 'change', 'Gestão de Dependências', 'Dependency Management'),
 
   s('nfr', 'E', 'delivery', 'Requisitos Não Funcionais', 'Non-Functional Requirements'),
-  s('software-architecture', 'E', 'delivery', 'Arquitetura de Software', 'Software Architecture'),
   s('apis', 'E', 'delivery', 'APIs & Integrações', 'APIs & Integrations'),
   s('security-privacy', 'E', 'delivery', 'Segurança & Privacidade', 'Security & Privacy'),
-  s('cloud', 'A', 'delivery', 'Cloud & Arquitetura Escalável', 'Cloud & Scalable Architecture'),
-  s('observability', 'A', 'delivery', 'Observabilidade & Confiabilidade', 'Observability & Reliability'),
+  s('software-architecture', 'A', 'delivery', 'Arquitetura de Software', 'Software Architecture'),
+  s('cloud', 'A', 'delivery', 'Cloud, Escalabilidade & Observabilidade', 'Cloud, Scalability & Observability'),
 
-  s('nps', 'E', 'metrics', 'NPS Net Promoter Score', 'NPS Net Promoter Score'),
-  s('csat-ces', 'E', 'metrics', 'CSAT & CES', 'CSAT & CES'),
+  s('nps', 'E', 'metrics', 'Métricas de Satisfação (NPS, CSAT, CES)', 'Satisfaction Metrics (NPS, CSAT, CES)'),
   s('customer-journey', 'E', 'metrics', 'Jornada do Cliente', 'Customer Journey'),
+  s('product-analytics', 'E', 'metrics', 'Análise de Dados & Product Analytics', 'Data & Product Analytics'),
   s('north-star', 'A', 'metrics', 'North Star Metric', 'North Star Metric'),
   s('metric-frameworks', 'A', 'metrics', 'Frameworks de Métricas (AARRR, HEART)', 'Metric Frameworks (AARRR, HEART)'),
   s('retention-churn', 'A', 'metrics', 'Retenção, Churn & Coortes', 'Retention, Churn & Cohorts'),
-  s('product-analytics', 'A', 'metrics', 'Product Analytics', 'Product Analytics'),
 
-  s('ai-fundamentals', 'E', 'ai', 'Fundamentos de IA & LLMs', 'AI & LLM Fundamentals'),
-  s('genai-po', 'E', 'ai', 'IA Generativa', 'Generative AI'),
+  s('ai-fundamentals', 'E', 'ai', 'Fundamentos de IA Generativa & LLMs', 'Generative AI & LLM Fundamentals'),
   s('prompt-engineering', 'E', 'ai', 'Engenharia de Prompt', 'Prompt Engineering'),
   s('responsible-ai', 'A', 'ai', 'IA Responsável & Ética', 'Responsible AI & Ethics'),
   s('ai-products', 'A', 'ai', 'Produtos com IA, Assistentes', 'AI-Powered Products, Assistants'),
