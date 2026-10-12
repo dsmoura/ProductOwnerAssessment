@@ -15,21 +15,21 @@ export const DOMAIN_IDS = [
 ] as const
 export type DomainId = (typeof DOMAIN_IDS)[number]
 
-export type Domain = { id: DomainId; name: Localized; profile: Localized }
+export type Domain = { id: DomainId; name: Localized }
 
 // The 10 areas and the Essential/Advanced balance per area are the app's proposal; the original spreadsheet only
 // splits Essenciais / Diferenciais and has no areas.
 export const DOMAINS: Record<DomainId, Domain> = {
-  agile: { id: 'agile', name: { pt: 'Métodos Ágeis', en: 'Agile Methods' }, profile: { pt: 'Guardião do Fluxo', en: 'Flow Keeper' } },
-  strategy: { id: 'strategy', name: { pt: 'Estratégia de Produto', en: 'Product Strategy' }, profile: { pt: 'Estrategista de Produto', en: 'Product Strategist' } },
-  backlog: { id: 'backlog', name: { pt: 'Backlog & Requisitos', en: 'Backlog & Requirements' }, profile: { pt: 'Arquiteto de Backlog', en: 'Backlog Architect' } },
-  discovery: { id: 'discovery', name: { pt: 'Usuário & Discovery', en: 'Users & Discovery' }, profile: { pt: 'Explorador do Usuário', en: 'User Explorer' } },
-  people: { id: 'people', name: { pt: 'Pessoas & Colaboração', en: 'People & Collaboration' }, profile: { pt: 'Conector', en: 'Connector' } },
-  business: { id: 'business', name: { pt: 'Negócio & Mercado', en: 'Business & Market' }, profile: { pt: 'Visão de Mercado', en: 'Market Thinker' } },
-  change: { id: 'change', name: { pt: 'Projetos & Mudança', en: 'Projects & Change' }, profile: { pt: 'Agente de Mudança', en: 'Change Agent' } },
-  delivery: { id: 'delivery', name: { pt: 'Engenharia & Entrega', en: 'Engineering & Delivery' }, profile: { pt: 'Parceiro da Engenharia', en: 'Engineering Partner' } },
-  metrics: { id: 'metrics', name: { pt: 'CX & Métricas', en: 'CX & Metrics' }, profile: { pt: 'Orientado a Resultados', en: 'Outcome Driver' } },
-  ai: { id: 'ai', name: { pt: 'Inteligência Artificial', en: 'Artificial Intelligence' }, profile: { pt: 'Construtor com IA', en: 'AI Builder' } },
+  agile: { id: 'agile', name: { pt: 'Métodos Ágeis', en: 'Agile Methods' } },
+  strategy: { id: 'strategy', name: { pt: 'Estratégia de Produto', en: 'Product Strategy' } },
+  backlog: { id: 'backlog', name: { pt: 'Backlog & Requisitos', en: 'Backlog & Requirements' } },
+  discovery: { id: 'discovery', name: { pt: 'Usuário & Discovery', en: 'Users & Discovery' } },
+  people: { id: 'people', name: { pt: 'Pessoas & Colaboração', en: 'People & Collaboration' } },
+  business: { id: 'business', name: { pt: 'Negócio & Mercado', en: 'Business & Market' } },
+  change: { id: 'change', name: { pt: 'Projetos & Mudança', en: 'Projects & Change' } },
+  delivery: { id: 'delivery', name: { pt: 'Engenharia & Entrega', en: 'Engineering & Delivery' } },
+  metrics: { id: 'metrics', name: { pt: 'CX & Métricas', en: 'CX & Metrics' } },
+  ai: { id: 'ai', name: { pt: 'Inteligência Artificial', en: 'Artificial Intelligence' } },
 }
 
 export type Skill = {
@@ -164,7 +164,7 @@ export const SKILL_IDS = new Set(SKILLS.map((sk) => sk.id))
 // Within each area, essentials come before advanced skills; the stable sort keeps catalogue order inside a tier.
 export const SKILLS_ESSENTIALS_FIRST = [...SKILLS].sort((a, b) => Number(a.tier === 'A') - Number(b.tier === 'A'))
 
-export type Level = { min: number; max: number; title: Localized; action: Localized }
+export type Level = { min: number; max: number; title: Localized }
 
 // Behavioural anchors for the 0–10 scale, so a "6" means the same thing to everyone.
 export const LEVELS: Level[] = [
@@ -172,54 +172,30 @@ export const LEVELS: Level[] = [
     min: 0,
     max: 0,
     title: { pt: 'Desconheço', en: 'Unfamiliar' },
-    action: {
-      pt: 'Comece pelo básico: um artigo ou vídeo introdutório e um resumo de uma página.',
-      en: 'Start with the basics: an introductory article or video and a one-page summary.',
-    },
   },
   {
     min: 1,
     max: 2,
     title: { pt: 'Já ouvi falar', en: 'Heard of it' },
-    action: {
-      pt: 'Estude os conceitos e explique-os com suas palavras para alguém do time.',
-      en: 'Study the concepts and explain them in your own words to someone on the team.',
-    },
   },
   {
     min: 3,
     max: 4,
     title: { pt: 'Conheço a teoria', en: 'Know the theory' },
-    action: {
-      pt: 'Aplique em uma situação real na próxima sprint, mesmo que pequena.',
-      en: 'Apply it to a real situation in the next sprint, even a small one.',
-    },
   },
   {
     min: 5,
     max: 6,
     title: { pt: 'Aplico com apoio', en: 'Apply with support' },
-    action: {
-      pt: 'Pratique sem apoio e peça feedback ao time após cada uso.',
-      en: 'Practise without support and ask the team for feedback after each use.',
-    },
   },
   {
     min: 7,
     max: 8,
     title: { pt: 'Aplico com autonomia', en: 'Apply independently' },
-    action: {
-      pt: 'Compartilhe: facilite uma sessão ou mentore alguém nesse tema.',
-      en: 'Share it: facilitate a session or mentor someone on this topic.',
-    },
   },
   {
     min: 9,
     max: 10,
     title: { pt: 'Aplico com maestria', en: 'Apply with mastery' },
-    action: {
-      pt: 'Referência no tema. Mantenha e ajude a organização a evoluir.',
-      en: 'You are a reference on this. Keep it up and help the organisation grow.',
-    },
   },
 ]

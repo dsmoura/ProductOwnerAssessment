@@ -1,12 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { readSheet } from 'read-excel-file/node'
 import { DOMAIN_IDS, NEW_SKILLS, SHEET_SKILLS, SKILLS, sheetLabel } from './skills'
-import { biggestChanges, essentialGaps, focusPlan, levelFor, profileFor, tierAverage, type Scores } from './scoring'
+import { biggestChanges, levelFor, tierAverage, type Scores } from './scoring'
 import { parseAppData, sampleData } from './data'
 import { parseAssessmentRows } from './importXlsx'
 
 const ORIGINAL = 'Self-Assessment para Product Owners© - DionatanMoura.com.xlsx'
-const allScores = (v: number): Scores => Object.fromEntries(SKILLS.map((sk) => [sk.id, v]))
 
 describe('catalogue', () => {
   it('keeps 49 of the 58 skills of the original spreadsheet and has unique ids', () => {
@@ -41,22 +40,6 @@ describe('scoring', () => {
     expect(levelFor(0).title.en).toBe('Unfamiliar')
     expect(levelFor(6).title.en).toBe('Apply with support')
     expect(levelFor(10).title.en).toBe('Apply with mastery')
-  })
-
-  it('puts low essentials before low advanced skills, and skips 9+', () => {
-    const scores: Scores = { ...allScores(9), negotiation: 1, dod: 6, mvp: 4, 'agile-manifesto': 8 }
-    expect(focusPlan(scores).map((s) => s.id)).toEqual(['mvp', 'dod', 'negotiation'])
-    expect(focusPlan(allScores(10))).toEqual([])
-  })
-
-  it('counts essentials below 5 as gaps', () => {
-    expect(essentialGaps({ mvp: 4, dod: 5, negotiation: 0 })).toBe(1)
-  })
-
-  it('names the strongest area, or "forming" when everything is low', () => {
-    const scores = { ...allScores(5), 'user-stories': 10, dor: 10, dod: 10 }
-    expect(profileFor(scores)).toMatchObject({ strongest: 'backlog', forming: false })
-    expect(profileFor(allScores(1)).forming).toBe(true)
   })
 
   it('lists the biggest gains and drops', () => {

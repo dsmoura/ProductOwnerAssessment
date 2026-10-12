@@ -1,4 +1,4 @@
-/* Layout: one working column. Results = profile tiles, then radar + focus plan side by side, then the full skill map.
+/* Layout: one working column. Results = summary tiles, then the radar, then the full skill map.
    Each tab swaps the content under the tab bar. */
 :root {
   --ground: #f3f5f6;
@@ -111,11 +111,10 @@ select, input[type='date'], input[type='text'] {
 .confirm { display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--line); padding-top: 12px; font-size: 14px; }
 
 /* results */
-.summary { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 12px; }
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
 .tile .big { font-size: 30px; font-weight: 500; }
 .tile .sub { font-size: 13px; color: var(--muted); }
-.profile .big { font-family: var(--f-display); font-weight: 700; font-size: 24px; color: var(--accent); }
 .delta { font-family: var(--f-data); font-size: 12.5px; white-space: nowrap; }
 .delta.up { color: var(--high); }
 .delta.down { color: var(--low); }
@@ -136,15 +135,6 @@ select, input[type='date'], input[type='text'] {
 .radar-prev { fill: none; stroke: var(--prev); stroke-width: 1.5; stroke-dasharray: 4 3; }
 .radar-dot { fill: var(--accent); }
 
-.focus { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
-.focus li { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
-.focus li:last-child { border-bottom: 0; padding-bottom: 0; }
-.focus .score {
-  grid-row: span 3; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
-  font-family: var(--f-data); font-weight: 500; color: var(--surface);
-}
-.focus .step { font-size: 13px; color: var(--muted); }
-.focus .act { font-size: 14px; }
 
 .map { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 24px; }
 .domain { display: flex; flex-direction: column; gap: 6px; }
@@ -260,7 +250,6 @@ select, input[type='date'], input[type='text'] {
 footer { font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
 
 @media (max-width: 860px) {
-  .summary { grid-template-columns: 1fr 1fr; }
   .split, .map { grid-template-columns: 1fr; }
   .scale { grid-template-columns: repeat(3, 1fr); }
   .item { grid-template-columns: 1fr; }

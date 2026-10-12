@@ -1,16 +1,7 @@
 import { useState } from 'react'
 import type { AppData, Assessment } from '../domain/data'
 import { DOMAIN_IDS, DOMAINS, SKILLS, SKILLS_ESSENTIALS_FIRST } from '../domain/skills'
-import {
-  domainAverage,
-  essentialGaps,
-  focusPlan,
-  levelFor,
-  nextLevel,
-  profileFor,
-  ratedCount,
-  tierAverage,
-} from '../domain/scoring'
+import { domainAverage, ratedCount, tierAverage } from '../domain/scoring'
 import { useI18n } from '../i18n'
 import { downloadBlob } from '../lib/download'
 import { renderShareCard } from '../lib/shareCard'
@@ -41,12 +32,9 @@ export function ResultView({ data, current, previous, onRate }: Props) {
     )
   }
 
-  const profile = profileFor(sc)
   const eAvg = tierAverage(sc, 'E')
   const aAvg = tierAverage(sc, 'A')
   const strong = SKILLS.filter((s) => sc[s.id] >= 7).length
-  const gaps = essentialGaps(sc)
-  const focus = focusPlan(sc)
 
   async function shareCard() {
     setBusy(true)
@@ -61,17 +49,6 @@ export function ResultView({ data, current, previous, onRate }: Props) {
   return (
     <>
       <div className="summary">
-        <div className="tile profile">
-          <span className="eyebrow">{t.result.profile}</span>
-          <span className="big">
-            {profile.forming || !profile.strongest ? t.result.inFormation : l(DOMAINS[profile.strongest].profile)}
-          </span>
-          <span className="sub">
-            {profile.forming || !profile.strongest
-              ? t.result.formingBody
-              : t.result.profileBody(l(DOMAINS[profile.strongest].name), profile.weakest ? l(DOMAINS[profile.weakest].name) : '–')}
-          </span>
-        </div>
         <div className="tile">
           <span className="eyebrow">{t.tierShort.E}</span>
           <span className="big num">{formatScore(eAvg)}</span>
@@ -108,55 +85,27 @@ export function ResultView({ data, current, previous, onRate }: Props) {
         </section>
       )}
 
-      <div className="split">
-        <section className="panel">
-          <div>
-            <h2>{t.result.mapTitle}</h2>
-            <p className="note">{t.result.mapNote(formatDate(current.date))}</p>
-          </div>
-          <div className="radar-box">
-            <Radar scores={sc} previous={ps} />
-          </div>
-          <div className="legend">
+      <section className="panel">
+        <div>
+          <h2>{t.result.mapTitle}</h2>
+          <p className="note">{t.result.mapNote(formatDate(current.date))}</p>
+        </div>
+        <div className="radar-box">
+          <Radar scores={sc} previous={ps} />
+        </div>
+        <div className="legend">
+          <span>
+            <i style={{ background: 'var(--accent)' }} />
+            {formatDate(current.date)}
+          </span>
+          {previous && (
             <span>
-              <i style={{ background: 'var(--accent)' }} />
-              {formatDate(current.date)}
+              <i style={{ background: 'var(--prev)' }} />
+              {formatDate(previous.date)}
             </span>
-            {previous && (
-              <span>
-                <i style={{ background: 'var(--prev)' }} />
-                {formatDate(previous.date)}
-              </span>
-            )}
-          </div>
-        </section>
-
-        <section className="panel">
-          <div>
-            <h2>{t.result.focusTitle}</h2>
-            <p className="note">{gaps ? t.result.focusGaps(gaps) : focus.length ? t.result.focusNoGaps : t.result.focusDone}</p>
-          </div>
-          <ol className="focus">
-            {focus.map((s) => {
-              const v = sc[s.id]
-              const lvl = levelFor(v)
-              return (
-                <li key={s.id}>
-                  <span className="score" style={{ background: scoreColor(v) }}>
-                    {v}
-                  </span>
-                  <h3>
-                    {l(s.name)}
-                    <span className="tag">{t.tag[s.tier]}</span>
-                  </h3>
-                  <span className="step">{t.result.fromTo(l(lvl.title), l(nextLevel(lvl).title))}</span>
-                  <span className="act">{l(lvl.action)}</span>
-                </li>
-              )
-            })}
-          </ol>
-        </section>
-      </div>
+          )}
+        </div>
+      </section>
 
       <section className="panel">
         <div>

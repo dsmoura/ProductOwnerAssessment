@@ -20,7 +20,7 @@ There is no linter. Every push to `main` runs `npm test` and `npm run build`, th
 ## What this is
 
 A client-only React 19 + TypeScript app that turns the *Self-Assessment para Product Owners©* spreadsheet (the `.xlsx`
-in the repo root) into a web app: rate skills 0–10, get a profile, radar, focus plan and progress over time. No
+in the repo root) into a web app: rate skills 0–10, get a radar and progress over time. No
 backend; all data is in `localStorage`. `README.md` has the feature list and the "Decisions to review" that explain
 why the catalogue differs from the spreadsheet. `prototype/index.html` is a standalone static design prototype, not
 part of the build.
@@ -28,9 +28,9 @@ part of the build.
 ## Architecture
 
 - **`src/domain/` is pure logic with no React** and is the only tested layer.
-  - `skills.ts` is the catalogue: `DOMAINS` (10 areas, each with a profile name), `SHEET_SKILLS` (kept in the
+  - `skills.ts` is the catalogue: `DOMAINS` (10 areas), `SHEET_SKILLS` (kept in the
     spreadsheet's row order) + `NEW_SKILLS` = `SKILLS`, tiers `'E'` (Essential) / `'A'` (Advanced, the
-    spreadsheet's "Diferenciais"), and `LEVELS` (scale anchors + generic focus-plan actions).
+    spreadsheet's "Diferenciais"), and `LEVELS` (scale anchors).
   - `scoring.ts` derives everything from a `Scores` map (`skillId -> 0..10`). Unrated skills are absent from the
     map and ignored by averages; tier/area averages are always recomputed from the current catalogue, so changing
     a skill's tier or area retroactively regroups old assessments.

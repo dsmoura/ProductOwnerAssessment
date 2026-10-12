@@ -1,8 +1,8 @@
 # Self-Assessment para Product Owners
 
 Web app version of the *Self-Assessment para Product Owners©* spreadsheet by Dionatan Moura
-([dionatanmoura.com](https://dionatanmoura.com)). A Product Owner rates 86 skills from 0 to 10, gets a profile, a
-skill map and a focus plan, and tracks progress across assessments.
+([dionatanmoura.com](https://dionatanmoura.com)). A Product Owner rates 86 skills from 0 to 10, gets a skill
+map and tracks progress across assessments.
 
 **Live app: https://dsmoura.github.io/ProductOwnerAssessment/**
 
@@ -30,7 +30,7 @@ npm run preview    # serve dist/ at http://localhost:4173
 | --- | --- |
 | Home | Landing page with "Start new assessment"; returning users can continue an unfinished assessment or open their latest results; first-time visitors can open an example |
 | Rate | One area per step (10 steps), 0–10 per skill with behavioural anchors (0 Desconheço → 9–10 Aplico com maestria), previous score shown as a dashed hint, clickable area stepper, sticky Back/Next |
-| Results | Profile name from the strongest area, Essentials/Advanced averages with change vs. previous, radar of 10 areas, 3-item focus plan (essentials first), all 86 skills with previous-score markers, "Save your results" block (PDF report, JSON backup, share card) |
+| Results | Essentials/Advanced averages with change vs. previous, radar of 10 areas, all 86 skills with previous-score markers, "Save your results" block (PDF report, JSON backup, share card) |
 | Progress | Averages over time, per-area comparison, biggest gains and drops |
 | Data | Import the original `.xlsx` (each date column becomes an assessment), JSON backup and restore, delete an assessment |
 | Share | 1200×630 PNG card (LinkedIn/Open Graph size) |
@@ -44,7 +44,7 @@ Data is stored in the browser's `localStorage` only. There are no accounts or se
 src/
   domain/          pure logic, no React
     skills.ts      49 spreadsheet skills (same order) + 37 added, 10 areas, scale anchors
-    scoring.ts     averages, profile, focus plan, changes
+    scoring.ts     averages, levels, changes
     data.ts        data model, validation, localStorage, example data
     importXlsx.ts  original spreadsheet importer
     domain.test.ts
@@ -56,15 +56,14 @@ src/
 
 ## Decisions to review
 
-- **The 10-area grouping and the profile names** are this app's proposal. The spreadsheet only splits Essenciais
+- **The 10-area grouping** is this app's proposal. The spreadsheet only splits Essenciais
   (28) and Diferenciais (30). Change them in `src/domain/skills.ts`.
 - **Every area has Essential and Advanced skills** (47 / 39); a test enforces it. Diferenciais are shown as
   Avançados, and eight spreadsheet skills changed tier to balance the areas (see the comment on `SHEET_SKILLS`).
   Tier and area averages are recomputed, so past assessments show the new grouping too.
 - **The 37 added skills are not in the spreadsheet**, so the `.xlsx` import leaves them unrated. Older assessments
   simply have them unrated; averages ignore unrated skills.
-- **Scale anchors and focus-plan actions** are generic per level. Per-skill content (articles, courses, exercises)
-  is the next step for the focus plan.
+- **Scale anchors** are generic per level, not per skill.
 - **Scores are whole numbers.** Decimal scores from the spreadsheet are rounded on import.
 - **Skill names in `name.pt` must match the spreadsheet exactly**, because the importer matches rows by name.
   A test enforces this.

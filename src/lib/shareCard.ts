@@ -1,5 +1,5 @@
 import { DOMAIN_IDS, DOMAINS } from '../domain/skills'
-import { domainAverage, profileFor, tierAverage, type Scores } from '../domain/scoring'
+import { domainAverage, tierAverage, type Scores } from '../domain/scoring'
 import type { Dict } from '../i18n/pt'
 import { axisPoint, labelLayout } from './radarGeometry'
 
@@ -38,7 +38,7 @@ function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): st
   return lines
 }
 
-/** Renders a 1200×630 PNG (LinkedIn/OG size) with the profile, tier averages and the radar. */
+/** Renders a 1200×630 PNG (LinkedIn/OG size) with the date, tier averages and the radar. */
 export async function renderShareCard(scores: Scores, date: string, txt: CardText): Promise<Blob> {
   await Promise.all([
     document.fonts.load(`700 60px ${DISPLAY}`),
@@ -54,8 +54,7 @@ export async function renderShareCard(scores: Scores, date: string, txt: CardTex
   ctx.fillStyle = C.bg
   ctx.fillRect(0, 0, W, H)
 
-  const profile = profileFor(scores)
-  const title = profile.forming || !profile.strongest ? t.result.inFormation : l(DOMAINS[profile.strongest].profile)
+  const title = t.pdf.heading(formatDate(date))
   const x0 = 72
 
   ctx.fillStyle = C.soft
@@ -68,16 +67,6 @@ export async function renderShareCard(scores: Scores, date: string, txt: CardTex
   ctx.font = `700 60px ${DISPLAY}`
   const titleLines = wrap(ctx, title, 540)
   titleLines.forEach((line, i) => ctx.fillText(line, x0, 180 + i * 66))
-
-  let y = 180 + (titleLines.length - 1) * 66 + 52
-  if (profile.strongest && !profile.forming) {
-    ctx.fillStyle = C.soft
-    ctx.font = `500 24px ${BODY}`
-    for (const line of wrap(ctx, l(DOMAINS[profile.strongest].name), 540)) {
-      ctx.fillText(line, x0, y)
-      y += 32
-    }
-  }
 
   const stats: [string, number | null][] = [
     [t.card.essentials, tierAverage(scores, 'E')],
@@ -95,7 +84,7 @@ export async function renderShareCard(scores: Scores, date: string, txt: CardTex
 
   ctx.fillStyle = C.soft
   ctx.font = `500 20px ${BODY}`
-  ctx.fillText(`dionatanmoura.com · ${formatDate(date)}`, x0, 572)
+  ctx.fillText('dionatanmoura.com', x0, 572)
 
   // Radar
   const g = { cx: 915, cy: 320, r: 150 }

@@ -4,11 +4,6 @@ import { DOMAIN_IDS, DOMAINS, SKILLS, SKILLS_ESSENTIALS_FIRST } from '../domain/
 import {
   biggestChanges,
   domainAverage,
-  essentialGaps,
-  focusPlan,
-  levelFor,
-  nextLevel,
-  profileFor,
   ratedCount,
   tierAverage,
   type Change,
@@ -313,43 +308,16 @@ export async function renderPdfReport(data: AppData, txt: CardText): Promise<Blo
 
     // Summary tiles
     const gap = 3
-    const unit = (CW - 3 * gap) / 4.5
-    const widths = [1.5 * unit, unit, unit, unit]
-    const profile = profileFor(sc)
-    const forming = profile.forming || !profile.strongest
-    const title = forming ? t.result.inFormation : l(DOMAINS[profile.strongest!].profile)
-    const body = forming
-      ? t.result.formingBody
-      : t.result.profileBody(l(DOMAINS[profile.strongest!].name), profile.weakest ? l(DOMAINS[profile.weakest].name) : '–')
-    font(12, 'bold')
-    const titleLines = wrap(title, widths[0] - 8)
-    font(7.5)
-    const bodyLines = wrap(body, widths[0] - 8)
-    const h = Math.max(27, 10 + titleLines.length * lh(12) + bodyLines.length * lh(7.5) + 3)
+    const w = (CW - 2 * gap) / 3
+    const h = 27
     ensure(h)
-    let tx = M
-    const tiles = widths.map((w) => {
+    const tiles = [0, 1, 2].map((i) => {
+      const tx = M + i * (w + gap)
       doc.setDrawColor(...C.line)
       doc.setLineWidth(0.3)
       doc.roundedRect(tx, y, w, h, 2, 2, 'S')
-      const x = tx + 4
-      tx += w + gap
-      return x
+      return tx + 4
     })
-
-    eyebrow(t.result.profile, tiles[0], y + 6)
-    let py = y + 8
-    font(12, 'bold', C.accent)
-    for (const line of titleLines) {
-      py += lh(12)
-      write(line, tiles[0], py - lh(12) * 0.25)
-    }
-    py += 0.8
-    font(7.5, 'normal', C.muted)
-    for (const line of bodyLines) {
-      py += lh(7.5)
-      write(line, tiles[0], py - lh(7.5) * 0.25)
-    }
 
     const stat = (x: number, label: string, value: string, sub: { text: string; color: RGB } | null) => {
       eyebrow(label, x, y + 6)
@@ -362,33 +330,30 @@ export async function renderPdfReport(data: AppData, txt: CardText): Promise<Blo
     }
     const eAvg = tierAverage(sc, 'E')
     const aAvg = tierAverage(sc, 'A')
-    stat(tiles[1], t.tierShort.E, formatScore(eAvg), delta(eAvg, ps && tierAverage(ps, 'E'), true))
-    stat(tiles[2], t.tierShort.A, formatScore(aAvg), delta(aAvg, ps && tierAverage(ps, 'A'), true))
+    stat(tiles[0], t.tierShort.E, formatScore(eAvg), delta(eAvg, ps && tierAverage(ps, 'E'), true))
+    stat(tiles[1], t.tierShort.A, formatScore(aAvg), delta(aAvg, ps && tierAverage(ps, 'A'), true))
     const strong = SKILLS.filter((s) => sc[s.id] >= 7).length
-    stat(tiles[3], t.result.autonomous, String(strong), {
+    stat(tiles[2], t.result.autonomous, String(strong), {
       text: rated < SKILLS.length ? t.result.unrated(SKILLS.length - rated) : t.result.allRated,
       color: C.muted,
     })
     font(18, 'normal')
     const strongW = doc.getTextWidth(String(strong))
     font(9, 'normal', C.muted)
-    write(` / ${rated}`, tiles[3] + strongW, y + 15)
+    write(` / ${rated}`, tiles[2] + strongW, y + 15)
     y += h + 9
 
-    // Radar (left) and focus plan (right)
-    ensure(96)
+    // Radar
+    ensure(110)
     const top = y
-    const leftW = 84
-    const rightX = M + leftW + 8
-    const rightW = CW - leftW - 8
 
     font(11, 'bold')
     write(t.result.mapTitle, M, top + 4)
     font(7.5, 'normal', C.muted)
-    const mapNote = wrap(t.result.mapNote(formatDate(a.date)), leftW)
+    const mapNote = wrap(t.result.mapNote(formatDate(a.date)), CW)
     mapNote.forEach((line, i) => write(line, M, top + 8 + i * lh(7.5)))
-    const r = 24
-    const g = { cx: M + leftW / 2, cy: top + 8 + mapNote.length * lh(7.5) + 9 + r, r }
+    const r = 30
+    const g = { cx: M + CW / 2, cy: top + 8 + mapNote.length * lh(7.5) + 9 + r, r }
     const n = DOMAIN_IDS.length
     const ring = (values: number[]) => values.map((v, i) => axisPoint(i, n, v, g))
     doc.setDrawColor(...C.line)
@@ -432,54 +397,7 @@ export async function renderPdfReport(data: AppData, txt: CardText): Promise<Blo
     }
     legend(C.accent, formatDate(a.date), false)
     if (previous) legend(C.prev, formatDate(previous.date), true)
-    const leftEnd = ly + 2
-
-    font(11, 'bold')
-    write(t.result.focusTitle, rightX, top + 4)
-    const focus = focusPlan(sc)
-    const gaps = essentialGaps(sc)
-    font(7.5, 'normal', C.muted)
-    let ry = top + 8
-    for (const line of wrap(gaps ? t.result.focusGaps(gaps) : focus.length ? t.result.focusNoGaps : t.result.focusDone, rightW)) {
-      write(line, rightX, ry)
-      ry += lh(7.5)
-    }
-    ry += 3
-    const textX = rightX + 12
-    const textW = rightW - 12
-    focus.forEach((s, idx) => {
-      const v = sc[s.id]
-      const lvl = levelFor(v)
-      const itemTop = ry
-      doc.setFillColor(...scoreRGB(v))
-      doc.circle(rightX + 4.5, itemTop + 4.5, 4.5, 'F')
-      font(9, 'bold', C.white)
-      write(String(v), rightX + 4.5, itemTop + 5.6, 'center')
-
-      font(9, 'bold')
-      const nameLines = wrap(l(s.name), textW)
-      nameLines.forEach((line, i) => write(line, textX, itemTop + 3 + i * lh(9)))
-      ry = itemTop + 3 + (nameLines.length - 1) * lh(9)
-      const tagX = textX + doc.getTextWidth(nameLines[nameLines.length - 1]) + 2
-      tag(t.tag[s.tier], tagX, ry)
-      ry += lh(7.5) + 0.6
-      font(7.5, 'normal', C.muted)
-      for (const line of wrap(t.result.fromTo(l(lvl.title), l(nextLevel(lvl).title)), textW)) {
-        write(line, textX, ry)
-        ry += lh(7.5)
-      }
-      font(8, 'normal')
-      for (const line of wrap(l(lvl.action), textW)) {
-        write(line, textX, ry)
-        ry += lh(8)
-      }
-      ry = Math.max(ry, itemTop + 10)
-      if (idx < focus.length - 1) {
-        hline(rightX, rightX + rightW, ry)
-        ry += 3.5
-      }
-    })
-    y = Math.max(leftEnd, ry) + 10
+    y = ly + 12
 
     // All skills
     heading(t.result.allTitle)
