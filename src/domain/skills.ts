@@ -20,7 +20,7 @@ export type Domain = { id: DomainId; name: Localized }
 // The 10 areas and the Essential/Advanced balance per area are the app's proposal; the original spreadsheet only
 // splits Essenciais / Diferenciais and has no areas.
 export const DOMAINS: Record<DomainId, Domain> = {
-  agile: { id: 'agile', name: { pt: 'Métodos Ágeis', en: 'Agile Methods' } },
+  agile: { id: 'agile', name: { pt: 'Métodos Ágeis & Scrum', en: 'Agile Methods & Scrum' } },
   strategy: { id: 'strategy', name: { pt: 'Estratégia de Produto', en: 'Product Strategy' } },
   backlog: { id: 'backlog', name: { pt: 'Backlog & Requisitos', en: 'Backlog & Requirements' } },
   discovery: { id: 'discovery', name: { pt: 'Usuário & Discovery', en: 'Users & Discovery' } },
@@ -60,11 +60,11 @@ export const SHEET_SKILLS: Skill[] = [
   s('agile-manifesto', 'E', 'agile', 'Manifesto Ágil', 'Agile Manifesto'),
   s('product-development', 'E', 'strategy', 'Desenvolvimento de Produto', 'Product Development'),
   s('product-lifecycle', 'E', 'strategy', 'Ciclo de Vida de Produto', 'Product Lifecycle'),
-  s('dual-track', 'A', 'strategy', 'Dual Track Development (Discovery & Delivery)', 'Dual Track Development (Discovery & Delivery)'),
+  s('dual-track', 'A', 'strategy', 'Discovery & Delivery / Dual Track Development', 'Discovery & Delivery / Dual Track Development', 'Dual Track Development (Discovery & Delivery)'),
   s('scrum', 'E', 'agile', 'Scrum', 'Scrum', 'Scrum, Valores, Pilares, Artefatos, Papéis, Eventos'),
   s('sprint-planning', 'E', 'agile', 'Sprint Planning', 'Sprint Planning'),
   s('sprint-review', 'E', 'agile', 'Sprint Review', 'Sprint Review'),
-  s('backlog-refinement', 'E', 'agile', 'Backlog Refinement', 'Backlog Refinement'),
+  s('backlog-refinement', 'E', 'agile', 'Sprint Refinement', 'Sprint Refinement', 'Backlog Refinement'),
   s('working-with-developers', 'E', 'people', 'Cultura de Time de Produto', 'Product Team Culture', 'Trabalhando com Desenvolvedores de Produto'),
   s('stakeholder-management', 'E', 'people', 'Gestão de Stakeholders', 'Stakeholder Management'),
   s('product-vision', 'E', 'strategy', 'Visão e Estratégia de Produto', 'Product Vision & Strategy', 'Visão de Produto'),
@@ -98,7 +98,7 @@ export const SHEET_SKILLS: Skill[] = [
   s('bdd', 'A', 'agile', 'BDD Behaviour-Driven Development', 'BDD Behaviour-Driven Development'),
   s('outcome-metrics', 'E', 'metrics', 'Métricas de Produto', 'Product Metrics', 'Métricas de Eficácia, Produto e Usuário'),
   s('planning-poker', 'A', 'agile', 'Estimativas Ágeis e Planning Poker', 'Agile Estimation & Planning Poker', 'Planning Poker'),
-  s('kanban', 'A', 'agile', 'Método Kanban', 'Kanban Method'),
+  s('kanban', 'A', 'agile', 'Método Kanban & Lean', 'Kanban Method & Lean', 'Método Kanban'),
   s('xp', 'A', 'delivery', 'eXtreme Programming', 'eXtreme Programming'),
   s('devops', 'A', 'delivery', 'DevOps', 'DevOps'),
   s('continuous-delivery', 'A', 'delivery', 'Entrega Contínua', 'Continuous Delivery'),
@@ -141,7 +141,7 @@ export const NEW_SKILLS: Skill[] = [
   s('customer-journey', 'E', 'metrics', 'Jornada do Cliente', 'Customer Journey'),
   s('product-analytics', 'E', 'metrics', 'Análise de Dados & Product Analytics', 'Data & Product Analytics'),
   s('north-star', 'A', 'metrics', 'North Star Metric', 'North Star Metric'),
-  s('metric-frameworks', 'A', 'metrics', 'Frameworks de Métricas (AARRR, HEART)', 'Metric Frameworks (AARRR, HEART)'),
+  s('metric-frameworks', 'A', 'metrics', 'Métricas de Funil / AARRR', 'Funnel Metrics / AARRR'),
   s('retention-churn', 'A', 'metrics', 'Retenção, Churn & Coortes', 'Retention, Churn & Cohorts'),
 
   s('ai-fundamentals', 'E', 'ai', 'Fundamentos de IA Generativa & LLMs', 'Generative AI & LLM Fundamentals'),
