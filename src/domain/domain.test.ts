@@ -8,8 +8,8 @@ import { parseAssessmentRows } from './importXlsx'
 const ORIGINAL = 'Self-Assessment para Product Owners© - DionatanMoura.com.xlsx'
 
 describe('catalogue', () => {
-  it('keeps 49 of the 58 skills of the original spreadsheet and has unique ids', () => {
-    expect(SHEET_SKILLS).toHaveLength(49)
+  it('keeps 45 of the 58 skills of the original spreadsheet and has unique ids', () => {
+    expect(SHEET_SKILLS).toHaveLength(45)
     expect(new Set(SKILLS.map((s) => s.id)).size).toBe(SKILLS.length)
   })
 
@@ -30,7 +30,7 @@ describe('catalogue', () => {
 
 describe('scoring', () => {
   it('averages a tier and ignores unrated skills', () => {
-    const scores: Scores = { 'agile-manifesto': 8, scrum: 4, negotiation: 10 }
+    const scores: Scores = { 'agile-manifesto': 8, scrum: 4, 'conflict-resolution': 10 }
     expect(tierAverage(scores, 'E')).toBe(6)
     expect(tierAverage(scores, 'A')).toBe(10)
     expect(tierAverage({}, 'E')).toBeNull()

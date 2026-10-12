@@ -30,7 +30,7 @@ vagas de PO no Brasil.
 
 | Fonte | O que define para o PO | Leitura para o app |
 |---|---|---|
-| **Scrum Guide 2020** | O PO é responsável por maximizar o valor do produto. Responde pelo backlog: desenvolver e comunicar o **Product Goal**, criar e comunicar os itens, ordenar e garantir transparência. | Product Goal e Sprint Goal não estavam no catálogo. |
+| **Scrum Guide 2020** | O PO é responsável por maximizar o valor do produto. Responde pelo backlog: desenvolver e comunicar o **Product Goal**, criar e comunicar os itens, ordenar e garantir transparência. | Product Goal e Sprint Goal não estavam no catálogo; ficaram cobertos pela skill Scrum. |
 | **Scrum.org PSPO** | Tópicos do curso: Agile Product Management, Value-Driven Development, Scrum e empirismo, framework Scrum, Product Backlog Management. | Já coberto pelas áreas Métodos Ágeis, Estratégia e Backlog. |
 | **Scrum.org PSPO-A: "stances" do PO** | Posturas recomendadas: Customer Representative, Visionary, **Experimenter**, Decision Maker, Influencer, Collaborator. Posturas a evitar: Clerk, Story Writer, Project Manager, Subject Matter Expert, Gatekeeper, Manager. | "Experimenter" mostra que faltava uma skill de hipóteses e experimentos. |
 | **Scrum.org Evidence-Based Management (EBM)** | Quatro áreas de valor: Current Value, Unrealized Value, Time to Market, Ability to Innovate. | Coberto pelas skills de métricas que já existem. Fica como referência para Métricas de Produto. |
@@ -104,7 +104,7 @@ sobrepunham e foram fundidas.
 | *Product Mastery* | Geoff Watts | Papel do PO |
 | *The Mom Test* | Rob Fitzpatrick | Discovery (entrevistas) |
 | *The Lean Product Playbook* | Dan Olsen | Discovery, MVP |
-| *Lean Inception* | Paulo Caroli | Discovery, Inception |
+| *Lean Inception* | Paulo Caroli | Estratégia (Inception de Produto, Visão, MVP), Discovery (Personas) |
 | *Lean Analytics* | Alistair Croll, Benjamin Yoskovitz | Métricas |
 
 ### Autoavaliação: o que torna a nota realista
@@ -123,9 +123,9 @@ sobrepunham e foram fundidas.
 | Área do app | Lacuna | Sobreposição |
 |---|---|---|
 | Métodos Ágeis | Product Goal e Sprint Goal (Scrum Guide 2020) | — |
-| Backlog & Requisitos | Qualidade dos itens: INVEST (CSPO, vagas: histórias e critérios de aceite) | — |
+| Backlog & Requisitos | Qualidade dos itens: INVEST (CSPO, vagas: histórias e critérios de aceite) | INVEST × Histórias de Usuário (incorporado ao nome) |
 | Usuário & Discovery | Hipóteses e experimentos (CSPO, stance Experimenter, ICAgile, Cagan) | — |
-| Pessoas & Colaboração | Comunicação (67% das vagas, Mehta, Pichler) | — |
+| Pessoas & Liderança | Comunicação (67% das vagas, Mehta, Pichler) | — |
 | Negócio & Mercado | Conhecimento do domínio (vagas nos dois mercados) | Precificação × Unit Economics; Go-to-Market × Product-Led Growth; Análise de Mercado × Benchmarking |
 | Engenharia & Entrega | — | Cloud × Observabilidade |
 | CX & Métricas | Dados como competência essencial (Mehta, PM3, vagas) | NPS × CSAT & CES |
@@ -133,18 +133,17 @@ sobrepunham e foram fundidas.
 
 ## Mudanças aplicadas no catálogo
 
-O catálogo passou de 86 para **85 skills**: 49 da planilha e 36 adicionadas, sendo 50 Essenciais e 35 Avançadas.
-As 49 skills da planilha não mudaram, porque o import do `.xlsx` depende delas. O app ainda não tinha usuários,
-então os ids removidos não foram migrados.
+O catálogo passou de 86 para **78 skills**: 45 da planilha e 33 adicionadas, sendo 44 Essenciais e 34 Avançadas.
+Das skills da planilha, CNV, Sprint Retrospective e Lean Inception foram removidas; as renomeadas guardam o nome original em `sheetName`, porque o import
+do `.xlsx` depende dele. O app ainda não tinha usuários, então os ids removidos não foram migrados.
 
-**Adicionadas (todas Essenciais):**
+**Adicionadas** (Essenciais, exceto Comunicação & Storytelling e Liderança e Influência, que são Avançadas por decisão de produto):
 
 | Skill | Área | Por quê |
 |---|---|---|
-| Product Goal & Sprint Goal | Métodos Ágeis | Responsabilidade explícita do PO no Scrum Guide 2020 |
-| INVEST | Backlog & Requisitos | Critério de qualidade das histórias; base de refinamento e fatiamento (CSPO, Cohn) |
 | Hipóteses & Experimentos | Usuário & Discovery | "Validar premissas" (CSPO), stance Experimenter (PSPO-A), riscos de Cagan |
-| Comunicação & Storytelling | Pessoas & Colaboração | Skill mais citada em vagas (67%); influência e "managing up" (Mehta) |
+| Comunicação & Storytelling | Pessoas & Liderança | Skill mais citada em vagas (67%); influência e "managing up" (Mehta) |
+| Liderança e Influência | Pessoas & Liderança | Liderança (40%) e Influência (23%) nas vagas; stance Influencer (PSPO-A); Team Leadership e Managing Up (Mehta). O PO lidera sem autoridade formal |
 | Conhecimento do Domínio de Negócio | Negócio & Mercado | Requisito ou diferencial frequente (serviços financeiros 11% nos EUA; fintech e pagamentos no Brasil) |
 
 **Fundidas (a primeira absorve a segunda):**
@@ -157,6 +156,7 @@ então os ids removidos não foram migrados.
 | Go-to-Market & Product-Led Growth | Product-Led Growth |
 | Cloud, Escalabilidade & Observabilidade | Observabilidade & Confiabilidade |
 | Fundamentos de IA Generativa & LLMs | IA Generativa |
+| MVP & Release Plan (planilha: "MVP Produto Mínimo Viável") | Release Plan (linha da planilha passa a ser ignorada pelo import) |
 
 **Mudança de nível:**
 - **Análise de Dados & Product Analytics** (antes "Product Analytics") passou de Avançada para **Essencial**.
@@ -165,6 +165,31 @@ então os ids removidos não foram migrados.
 - **Arquitetura de Software** passou de Essencial para **Avançada**. Para um PO, profundidade técnica é
   diferencial. Engenharia & Entrega mantém como Essenciais Agile Testing, Requisitos Não Funcionais, APIs &
   Integrações e Segurança & Privacidade.
+- **Dívida Técnica** e **Gestão de Riscos** passaram de Essencial para **Avançada** (decisão de produto).
+- **Negociação** passou de Avançada para **Essencial**. As vagas no Brasil citam comunicação, negociação e gestão
+  de stakeholders como trio básico, e o PO negocia escopo e prioridade continuamente.
+
+**Mudança de área:** Ágil em Escala saiu de Projetos & Mudança e foi para **Métodos Ágeis**.
+
+**Área renomeada:** Pessoas & Colaboração passou a **Pessoas & Liderança**, com a entrada de Liderança e Influência.
+
+**Renomeadas** (o nome original da planilha continua em `sheetName` para o import):
+- Planning Poker passou a **Estimativas Ágeis e Planning Poker**.
+- Visão de Produto passou a **Visão e Estratégia de Produto**, absorvendo o tema da skill removida Estratégia e
+  Posicionamento de Produto (Product Strategy está em 28% das vagas e é um dos quatro pilares de Mehta).
+- Histórias de Usuário passou a **Histórias de Usuário & INVEST**. INVEST, o critério de qualidade das histórias
+  (CSPO, Mike Cohn), foi incorporado aqui em vez de virar uma skill separada.
+- Time de Desenvolvedores de Produto (na planilha, "Trabalhando com Desenvolvedores de Produto") passou a
+  **Cultura de Time de Produto**.
+
+**Removidas da planilha** (decisão de produto; as linhas passam a ser ignoradas pelo import):
+- CNV Comunicação Não-Violenta: sobrepunha-se a Resolução de Conflitos e a Comunicação & Storytelling.
+- Sprint Retrospective.
+- Lean Inception: suas técnicas seguem cobertas por Inception de Produto, Visão de Produto, Personas, Jornada do
+  Cliente e MVP.
+
+**Removidas das adicionadas pelo app** (decisão de produto): Continuous Discovery & Opportunity Solution Tree;
+Estratégia e Posicionamento de Produto; Product Goal & Sprint Goal (coberto pela skill Scrum).
 
 ## Considerado e não aplicado
 
