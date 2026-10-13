@@ -39,7 +39,7 @@ describe('catalogue', () => {
 
 describe('scoring', () => {
   it('averages a tier and ignores unrated skills', () => {
-    const scores: Scores = { 'agile-manifesto': 8, scrum: 4, 'conflict-resolution': 10 }
+    const scores: Scores = { 'agile-manifesto': 8, scrum: 4, 'design-sprint': 10 }
     expect(tierAverage(scores, 'E')).toBe(6)
     expect(tierAverage(scores, 'A')).toBe(10)
     expect(tierAverage({}, 'E')).toBeNull()

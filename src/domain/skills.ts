@@ -67,7 +67,8 @@ export const sheetLabel = (skill: Skill) => skill.sheetName ?? skill.name.pt
 // advanced skill next to the essential it builds on. The xlsx import matches by label, so the order is free.
 // Tiers follow the spreadsheet (Diferenciais = 'A') except where an area needed both levels or by product decision: dual-track and technical-debt moved to
 // Advanced; facilitation, business-model-canvas, lean-startup, project-management, agile-testing and
-// outcome-metrics and negotiation moved to Essential. Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência, Cultura Data-Driven, Gestão de Feedback de Usuários, CNV Comunicação Não-Violenta, Lean Inception, Sprint, Sprint Retrospective and Daily were dropped, and Release Plan was merged into mvp (their rows are ignored by the import).
+// outcome-metrics and negotiation moved to Essential. Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência, Cultura Data-Driven, Gestão de Feedback de Usuários, CNV Comunicação Não-Violenta, Sprint, Sprint Retrospective and Daily were dropped, Release Plan was merged into mvp and
+// Resolução de Conflitos into negotiation (their rows are ignored by the import).
 export const SKILLS: Skill[] = [
   n('domain-knowledge', 'E', 'business', 'Conhecimento do Domínio de Negócio', 'Business Domain Knowledge'),
   n('market-analysis', 'E', 'business', 'Análise de Mercado, Concorrência & Benchmarking', 'Market, Competitive Analysis & Benchmarking'),
@@ -85,7 +86,6 @@ export const SKILLS: Skill[] = [
   s('product-inception', 'E', 'strategy', 'Inception de Produto', 'Product Inception'),
   s('mvp', 'E', 'strategy', 'MVP & Release Plan', 'MVP & Release Plan', 'MVP Produto Mínimo Viável'),
   s('product-roadmap', 'E', 'strategy', 'Roadmap de Produto', 'Product Roadmap'),
-  n('outcome-roadmap', 'A', 'strategy', 'Roadmap Orientado a Resultados', 'Outcome-Based Roadmap'),
   s('dual-track', 'A', 'strategy', 'Discovery & Delivery / Dual Track Development', 'Discovery & Delivery / Dual Track Development', 'Dual Track Development (Discovery & Delivery)'),
 
   s('ux', 'E', 'discovery', 'User eXperience', 'User eXperience'),
@@ -97,6 +97,7 @@ export const SKILLS: Skill[] = [
   n('jtbd', 'A', 'discovery', 'Jobs to Be Done', 'Jobs to Be Done'),
   s('design-thinking', 'A', 'discovery', 'Design Thinking', 'Design Thinking'),
   s('design-sprint', 'A', 'discovery', 'Design Sprint', 'Design Sprint'),
+  s('lean-inception', 'A', 'discovery', 'Lean Inception', 'Lean Inception'),
 
   n('customer-journey', 'E', 'metrics', 'Jornada do Cliente', 'Customer Journey'),
   n('nps', 'E', 'metrics', 'Métricas de Satisfação (NPS, CSAT, CES)', 'Satisfaction Metrics (NPS, CSAT, CES)'),
@@ -115,14 +116,14 @@ export const SKILLS: Skill[] = [
   s('dod', 'E', 'backlog', 'DoD Definition of Done', 'DoD Definition of Done'),
   n('story-mapping', 'A', 'backlog', 'User Story Mapping', 'User Story Mapping'),
   n('cost-of-delay', 'A', 'backlog', 'Cost of Delay & WSJF', 'Cost of Delay & WSJF'),
-  s('technical-debt', 'A', 'backlog', 'Dívida Técnica', 'Technical Debt'),
+  s('technical-debt', 'A', 'backlog', 'Gestão de Dívida Técnica', 'Technical Debt Management', 'Dívida Técnica'),
 
   s('agile-manifesto', 'E', 'agile', 'Manifesto Ágil', 'Agile Manifesto'),
   s('scrum', 'E', 'agile', 'Scrum', 'Scrum', 'Scrum, Valores, Pilares, Artefatos, Papéis, Eventos'),
   s('sprint-planning', 'E', 'agile', 'Sprint Planning', 'Sprint Planning'),
   s('backlog-refinement', 'E', 'agile', 'Sprint Refinement', 'Sprint Refinement', 'Backlog Refinement'),
   s('sprint-review', 'E', 'agile', 'Sprint Review', 'Sprint Review'),
-  s('kanban', 'A', 'agile', 'Método Kanban & Lean', 'Kanban Method & Lean', 'Método Kanban'),
+  s('kanban', 'A', 'agile', 'Lean & Método Kanban', 'Lean & Kanban Method', 'Método Kanban'),
   s('planning-poker', 'A', 'agile', 'Estimativas Ágeis e Planning Poker', 'Agile Estimation & Planning Poker', 'Planning Poker'),
   s('bdd', 'A', 'agile', 'BDD Behaviour-Driven Development', 'BDD Behaviour-Driven Development'),
   s('agile-at-scale', 'A', 'agile', 'Ágil em Escala', 'Agile at Scale'),
@@ -152,9 +153,8 @@ export const SKILLS: Skill[] = [
   s('working-with-developers', 'E', 'people', 'Cultura de Time de Produto', 'Product Team Culture', 'Trabalhando com Desenvolvedores de Produto'),
   s('stakeholder-management', 'E', 'people', 'Gestão de Stakeholders', 'Stakeholder Management'),
   s('facilitation', 'E', 'people', 'Facilitação', 'Facilitation'),
-  s('negotiation', 'E', 'people', 'Negociação', 'Negotiation'),
+  s('negotiation', 'E', 'people', 'Negociação & Resolução de Conflitos', 'Negotiation & Conflict Resolution', 'Negociação'),
   n('communication', 'A', 'people', 'Comunicação & Storytelling', 'Communication & Storytelling'),
-  s('conflict-resolution', 'A', 'people', 'Resolução de Conflitos', 'Conflict Resolution'),
   n('leadership-influence', 'A', 'people', 'Liderança e Influência', 'Leadership & Influence'),
 ]
 

@@ -191,6 +191,14 @@ do `.xlsx` depende dele. O app ainda não tinha usuários, então os ids removid
 **Removidas das adicionadas pelo app** (decisão de produto): Continuous Discovery & Opportunity Solution Tree;
 Estratégia e Posicionamento de Produto; Product Goal & Sprint Goal (coberto pela skill Scrum).
 
+**Revisão seguinte (77 skills: 45 da planilha e 32 adicionadas; 44 Essenciais e 33 Avançadas):**
+- **Lean Inception** voltou, como Avançada em Usuário & Discovery.
+- **Resolução de Conflitos** foi fundida em Negociação, que passou a **Negociação & Resolução de Conflitos**
+  (Essencial; a linha "Resolução de Conflitos" da planilha passa a ser ignorada pelo import).
+- **Roadmap Orientado a Resultados** foi removida.
+- Renomeadas: Dívida Técnica passou a **Gestão de Dívida Técnica**; Método Kanban & Lean passou a
+  **Lean & Método Kanban**.
+
 ## Considerado e não aplicado
 
 | Ideia | Decisão |

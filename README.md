@@ -1,12 +1,12 @@
 # Self-Assessment para Product Owners
 
 Web app version of the *Self-Assessment para Product Owners©* spreadsheet by Dionatan Moura
-([dionatanmoura.com](https://dionatanmoura.com)). A Product Owner rates 78 skills from 0 to 10, gets a skill
+([dionatanmoura.com](https://dionatanmoura.com)). A Product Owner rates 77 skills from 0 to 10, gets a skill
 map and tracks progress across assessments.
 
 **Live app: https://dsmoura.github.io/ProductOwnerAssessment/**
 
-The original spreadsheet is kept in the repo root and is the source of truth for its 58 skills. The app keeps 45 of them (Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência and Cultura Data-Driven, Gestão de Feedback de Usuários, CNV Comunicação Não-Violenta, Lean Inception, Sprint, Sprint Retrospective and Daily were dropped; Release Plan was merged into MVP) and adds 33 more
+The original spreadsheet is kept in the repo root and is the source of truth for its 58 skills. The app keeps 45 of them (Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência and Cultura Data-Driven, Gestão de Feedback de Usuários, CNV Comunicação Não-Violenta, Sprint, Sprint Retrospective and Daily were dropped; Release Plan was merged into MVP and Resolução de Conflitos into Negociação) and adds 32 more
 (product management, project management, software engineering, CX & metrics, AI).
 
 ## Run it
@@ -30,7 +30,7 @@ npm run preview    # serve dist/ at http://localhost:4173
 | --- | --- |
 | Home | Landing page with "Start new assessment"; returning users can continue an unfinished assessment or open their latest results; first-time visitors can open an example |
 | Rate | One area per step (10 steps), 0–10 per skill with behavioural anchors (0 Desconheço → 9–10 Aplico com maestria), previous score shown as a dashed hint, clickable area stepper, sticky Back/Next |
-| Results | Essentials/Advanced averages with change vs. previous, radar of 10 areas, all 78 skills with previous-score markers, "Save your results" block (PDF report, JSON backup, share card) |
+| Results | Essentials/Advanced averages with change vs. previous, radar of 10 areas, all 77 skills with previous-score markers, "Save your results" block (PDF report, JSON backup, share card) |
 | Progress | Averages over time, per-area comparison, biggest gains and drops |
 | Data | Import the original `.xlsx` (each date column becomes an assessment), JSON backup and restore, delete an assessment |
 | Share | 1200×630 PNG card (LinkedIn/Open Graph size) |
@@ -43,7 +43,7 @@ Data is stored in the browser's `localStorage` only. There are no accounts or se
 ```
 src/
   domain/          pure logic, no React
-    skills.ts      78 skills in display order (45 from the spreadsheet + 33 added), 10 areas, scale anchors
+    skills.ts      77 skills in display order (45 from the spreadsheet + 32 added), 10 areas, scale anchors
     scoring.ts     averages, levels, changes
     data.ts        data model, validation, localStorage, example data
     importXlsx.ts  original spreadsheet importer
@@ -58,10 +58,10 @@ src/
 
 - **The 10-area grouping** is this app's proposal. The spreadsheet only splits Essenciais
   (28) and Diferenciais (30). Change them in `src/domain/skills.ts`.
-- **Every area has Essential and Advanced skills** (44 / 34); a test enforces it. Diferenciais are shown as
+- **Every area has Essential and Advanced skills** (44 / 33); a test enforces it. Diferenciais are shown as
   Avançados, and eight spreadsheet skills changed tier to balance the areas (see the comment on `SHEET_SKILLS`).
   Tier and area averages are recomputed, so past assessments show the new grouping too.
-- **The 33 added skills are not in the spreadsheet**, so the `.xlsx` import leaves them unrated. Older assessments
+- **The 32 added skills are not in the spreadsheet**, so the `.xlsx` import leaves them unrated. Older assessments
   simply have them unrated; averages ignore unrated skills.
 - **The added skills follow market research** (certifications, competency frameworks, job postings, books):
   see [docs/pesquisa-skills-po.md](docs/pesquisa-skills-po.md). Some overlapping skills were merged (e.g. NPS with
