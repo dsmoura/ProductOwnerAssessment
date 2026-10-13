@@ -67,19 +67,19 @@ export const sheetLabel = (skill: Skill) => skill.sheetName ?? skill.name.pt
 // Advanced; facilitation, business-model-canvas, lean-startup, agile-testing and negotiation moved
 // to Essential. Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência, Métricas de Eficácia,
 // Produto e Usuário, Cultura Data-Driven, Gestão de Feedback de Usuários, CNV Comunicação Não-Violenta, Desenvolvimento
-// de Produto, Gestão de Backlog, Gerenciamento de Projetos, Sprint, Sprint Retrospective and Daily were dropped; Release
-// Plan was merged into mvp, Lean Inception into product-inception and Resolução de Conflitos into negotiation (their
-// rows are ignored by the import).
+// de Produto, Gestão de Backlog, Gerenciamento de Projetos, Sprint, Sprint Retrospective, Daily and Business Agility were
+// dropped; Release Plan was merged into mvp, Lean Inception into product-inception and Resolução de Conflitos into
+// negotiation (their rows are ignored by the import).
 export const SKILLS: Skill[] = [
   n('domain-knowledge', 'E', 'business', 'Conhecimento do Domínio de Negócio', 'Business Domain Knowledge'),
   n('market-analysis', 'E', 'business', 'Análise de Mercado, Concorrência & Benchmarking', 'Market, Competitive Analysis & Benchmarking'),
   s('business-model-canvas', 'E', 'business', 'Business Model Canvas', 'Business Model Canvas'),
   s('lean-startup', 'E', 'business', 'Lean Startup', 'Lean Startup'),
   n('business-case', 'E', 'business', 'Business Case & ROI', 'Business Case & ROI'),
-  n('pricing', 'A', 'business', 'Precificação, Monetização & Unit Economics', 'Pricing, Monetization & Unit Economics'),
+  n('pricing', 'A', 'business', 'Precificação & Monetização', 'Pricing & Monetization'),
+  n('unit-economics', 'A', 'business', 'Unit Economics', 'Unit Economics'),
   n('go-to-market', 'A', 'business', 'Go-to-Market & Product-Led Growth', 'Go-to-Market & Product-Led Growth'),
   s('okrs', 'A', 'business', 'OKRs Objectives and Key Results', 'OKRs Objectives and Key Results'),
-  s('business-agility', 'A', 'business', 'Business Agility', 'Business Agility'),
 
   s('product-lifecycle', 'E', 'strategy', 'Ciclo de Vida de Produto', 'Product Lifecycle'),
   s('product-vision', 'E', 'strategy', 'Visão e Estratégia de Produto', 'Product Vision & Strategy', 'Visão de Produto'),

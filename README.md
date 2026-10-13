@@ -6,7 +6,7 @@ map and tracks progress across assessments.
 
 **Live app: https://dsmoura.github.io/ProductOwnerAssessment/**
 
-The original spreadsheet is kept in the repo root and is the source of truth for its 58 skills. The app keeps 40 of them (Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência, Métricas de Eficácia, Produto e Usuário, Cultura Data-Driven, Gestão de Feedback de Usuários, CNV Comunicação Não-Violenta, Desenvolvimento de Produto, Gestão de Backlog, Gerenciamento de Projetos, Sprint, Sprint Retrospective and Daily were dropped; Release Plan was merged into MVP, Lean Inception into Inception de Produto and Resolução de Conflitos into Negociação) and adds 30 more
+The original spreadsheet is kept in the repo root and is the source of truth for its 58 skills. The app keeps 39 of them (Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência, Métricas de Eficácia, Produto e Usuário, Cultura Data-Driven, Gestão de Feedback de Usuários, CNV Comunicação Não-Violenta, Desenvolvimento de Produto, Gestão de Backlog, Gerenciamento de Projetos, Sprint, Sprint Retrospective, Daily and Business Agility were dropped; Release Plan was merged into MVP, Lean Inception into Inception de Produto and Resolução de Conflitos into Negociação) and adds 31 more
 (product management, software engineering, CX & metrics, AI).
 
 ## Run it
@@ -43,7 +43,7 @@ Data is stored in the browser's `localStorage` only. There are no accounts or se
 ```
 src/
   domain/          pure logic, no React
-    skills.ts      70 skills in display order (40 from the spreadsheet + 30 added), 9 areas, scale anchors
+    skills.ts      70 skills in display order (39 from the spreadsheet + 31 added), 9 areas, scale anchors
     scoring.ts     averages, levels, changes
     data.ts        data model, validation, localStorage, example data
     importXlsx.ts  original spreadsheet importer
@@ -61,7 +61,7 @@ src/
 - **Every area has Essential and Advanced skills** (40 / 30); a test enforces it. Diferenciais are shown as
   Avançados, and seven spreadsheet skills changed tier to balance the areas (see the comment on `SHEET_SKILLS`).
   Tier and area averages are recomputed, so past assessments show the new grouping too.
-- **The 30 added skills are not in the spreadsheet**, so the `.xlsx` import leaves them unrated. Older assessments
+- **The 31 added skills are not in the spreadsheet**, so the `.xlsx` import leaves them unrated. Older assessments
   simply have them unrated; averages ignore unrated skills.
 - **The added skills follow market research** (certifications, competency frameworks, job postings, books):
   see [docs/pesquisa-skills-po.md](docs/pesquisa-skills-po.md). Some overlapping skills were merged (e.g. NPS with
