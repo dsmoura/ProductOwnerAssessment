@@ -1,19 +1,19 @@
 export type Tier = 'E' | 'A'
 export type Localized = { pt: string; en: string }
 
-// Order = the steps of the rating flow and the axes of the radar: the product cycle (why → for whom → what → how →
-// outcome), then the cross-cutting areas. The radar is circular, so AI and Metrics sit next to Strategy.
+// Order = the steps of the rating flow and the axes of the radar: market and strategy, the user and how success is
+// measured, then building and delivering, then the cross-cutting areas (AI, projects, people).
 export const DOMAIN_IDS = [
-  'strategy',
   'business',
+  'strategy',
   'discovery',
+  'metrics',
   'backlog',
   'agile',
   'delivery',
-  'metrics',
-  'people',
-  'change',
   'ai',
+  'change',
+  'people',
 ] as const
 export type DomainId = (typeof DOMAIN_IDS)[number]
 
@@ -22,16 +22,16 @@ export type Domain = { id: DomainId; name: Localized }
 // The 10 areas and the Essential/Advanced balance per area are the app's proposal; the original spreadsheet only
 // splits Essenciais / Diferenciais and has no areas.
 export const DOMAINS: Record<DomainId, Domain> = {
-  strategy: { id: 'strategy', name: { pt: 'Estratégia de Produto', en: 'Product Strategy' } },
   business: { id: 'business', name: { pt: 'Negócio & Mercado', en: 'Business & Market' } },
+  strategy: { id: 'strategy', name: { pt: 'Estratégia de Produto', en: 'Product Strategy' } },
   discovery: { id: 'discovery', name: { pt: 'Usuário & Discovery', en: 'Users & Discovery' } },
+  metrics: { id: 'metrics', name: { pt: 'CX & Métricas', en: 'CX & Metrics' } },
   backlog: { id: 'backlog', name: { pt: 'Backlog & Requisitos', en: 'Backlog & Requirements' } },
   agile: { id: 'agile', name: { pt: 'Métodos Ágeis & Scrum', en: 'Agile Methods & Scrum' } },
   delivery: { id: 'delivery', name: { pt: 'Engenharia & Entrega', en: 'Engineering & Delivery' } },
-  metrics: { id: 'metrics', name: { pt: 'CX & Métricas', en: 'CX & Metrics' } },
-  people: { id: 'people', name: { pt: 'Pessoas & Liderança', en: 'People & Leadership' } },
-  change: { id: 'change', name: { pt: 'Projetos & Mudança', en: 'Projects & Change' } },
   ai: { id: 'ai', name: { pt: 'Inteligência Artificial', en: 'Artificial Intelligence' } },
+  change: { id: 'change', name: { pt: 'Projetos & Mudança', en: 'Projects & Change' } },
+  people: { id: 'people', name: { pt: 'Pessoas & Liderança', en: 'People & Leadership' } },
 }
 
 export type Skill = {
@@ -69,15 +69,6 @@ export const sheetLabel = (skill: Skill) => skill.sheetName ?? skill.name.pt
 // Advanced; facilitation, business-model-canvas, lean-startup, project-management, agile-testing and
 // outcome-metrics and negotiation moved to Essential. Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência, Cultura Data-Driven, Gestão de Feedback de Usuários, CNV Comunicação Não-Violenta, Lean Inception, Sprint, Sprint Retrospective and Daily were dropped, and Release Plan was merged into mvp (their rows are ignored by the import).
 export const SKILLS: Skill[] = [
-  s('product-development', 'E', 'strategy', 'Desenvolvimento de Produto', 'Product Development'),
-  s('product-lifecycle', 'E', 'strategy', 'Ciclo de Vida de Produto', 'Product Lifecycle'),
-  s('product-vision', 'E', 'strategy', 'Visão e Estratégia de Produto', 'Product Vision & Strategy', 'Visão de Produto'),
-  s('product-inception', 'E', 'strategy', 'Inception de Produto', 'Product Inception'),
-  s('mvp', 'E', 'strategy', 'MVP & Release Plan', 'MVP & Release Plan', 'MVP Produto Mínimo Viável'),
-  s('product-roadmap', 'E', 'strategy', 'Roadmap de Produto', 'Product Roadmap'),
-  n('outcome-roadmap', 'A', 'strategy', 'Roadmap Orientado a Resultados', 'Outcome-Based Roadmap'),
-  s('dual-track', 'A', 'strategy', 'Discovery & Delivery / Dual Track Development', 'Discovery & Delivery / Dual Track Development', 'Dual Track Development (Discovery & Delivery)'),
-
   n('domain-knowledge', 'E', 'business', 'Conhecimento do Domínio de Negócio', 'Business Domain Knowledge'),
   n('market-analysis', 'E', 'business', 'Análise de Mercado, Concorrência & Benchmarking', 'Market, Competitive Analysis & Benchmarking'),
   s('business-model-canvas', 'E', 'business', 'Business Model Canvas', 'Business Model Canvas'),
@@ -88,6 +79,15 @@ export const SKILLS: Skill[] = [
   s('okrs', 'A', 'business', 'OKRs Objectives and Key Results', 'OKRs Objectives and Key Results'),
   s('business-agility', 'A', 'business', 'Business Agility', 'Business Agility'),
 
+  s('product-development', 'E', 'strategy', 'Desenvolvimento de Produto', 'Product Development'),
+  s('product-lifecycle', 'E', 'strategy', 'Ciclo de Vida de Produto', 'Product Lifecycle'),
+  s('product-vision', 'E', 'strategy', 'Visão e Estratégia de Produto', 'Product Vision & Strategy', 'Visão de Produto'),
+  s('product-inception', 'E', 'strategy', 'Inception de Produto', 'Product Inception'),
+  s('mvp', 'E', 'strategy', 'MVP & Release Plan', 'MVP & Release Plan', 'MVP Produto Mínimo Viável'),
+  s('product-roadmap', 'E', 'strategy', 'Roadmap de Produto', 'Product Roadmap'),
+  n('outcome-roadmap', 'A', 'strategy', 'Roadmap Orientado a Resultados', 'Outcome-Based Roadmap'),
+  s('dual-track', 'A', 'strategy', 'Discovery & Delivery / Dual Track Development', 'Discovery & Delivery / Dual Track Development', 'Dual Track Development (Discovery & Delivery)'),
+
   s('ux', 'E', 'discovery', 'User eXperience', 'User eXperience'),
   s('personas', 'E', 'discovery', 'Personas', 'Personas'),
   n('user-interviews', 'E', 'discovery', 'Entrevistas com Usuários', 'User Interviews'),
@@ -97,6 +97,15 @@ export const SKILLS: Skill[] = [
   n('jtbd', 'A', 'discovery', 'Jobs to Be Done', 'Jobs to Be Done'),
   s('design-thinking', 'A', 'discovery', 'Design Thinking', 'Design Thinking'),
   s('design-sprint', 'A', 'discovery', 'Design Sprint', 'Design Sprint'),
+
+  n('customer-journey', 'E', 'metrics', 'Jornada do Cliente', 'Customer Journey'),
+  n('nps', 'E', 'metrics', 'Métricas de Satisfação (NPS, CSAT, CES)', 'Satisfaction Metrics (NPS, CSAT, CES)'),
+  s('outcome-metrics', 'E', 'metrics', 'Métricas de Produto', 'Product Metrics', 'Métricas de Eficácia, Produto e Usuário'),
+  n('product-analytics', 'E', 'metrics', 'Análise de Dados & Product Analytics', 'Data & Product Analytics'),
+  n('north-star', 'A', 'metrics', 'North Star Metric', 'North Star Metric'),
+  n('metric-frameworks', 'A', 'metrics', 'Métricas de Funil / AARRR', 'Funnel Metrics / AARRR'),
+  n('retention-churn', 'A', 'metrics', 'Retenção, Churn & Coortes', 'Retention, Churn & Cohorts'),
+  s('ab-testing', 'A', 'metrics', 'Testes A/B', 'A/B Testing'),
 
   s('backlog-management', 'E', 'backlog', 'Gestão de Backlog', 'Backlog Management'),
   s('backlog-prioritization', 'E', 'backlog', 'Técnicas de Priorização de Backlog', 'Backlog Prioritization Techniques'),
@@ -129,14 +138,16 @@ export const SKILLS: Skill[] = [
   s('feature-toggles', 'A', 'delivery', 'Feature Toggles', 'Feature Toggles'),
   n('cloud', 'A', 'delivery', 'Cloud, Escalabilidade & Observabilidade', 'Cloud, Scalability & Observability'),
 
-  n('customer-journey', 'E', 'metrics', 'Jornada do Cliente', 'Customer Journey'),
-  n('nps', 'E', 'metrics', 'Métricas de Satisfação (NPS, CSAT, CES)', 'Satisfaction Metrics (NPS, CSAT, CES)'),
-  s('outcome-metrics', 'E', 'metrics', 'Métricas de Produto', 'Product Metrics', 'Métricas de Eficácia, Produto e Usuário'),
-  n('product-analytics', 'E', 'metrics', 'Análise de Dados & Product Analytics', 'Data & Product Analytics'),
-  n('north-star', 'A', 'metrics', 'North Star Metric', 'North Star Metric'),
-  n('metric-frameworks', 'A', 'metrics', 'Métricas de Funil / AARRR', 'Funnel Metrics / AARRR'),
-  n('retention-churn', 'A', 'metrics', 'Retenção, Churn & Coortes', 'Retention, Churn & Cohorts'),
-  s('ab-testing', 'A', 'metrics', 'Testes A/B', 'A/B Testing'),
+  n('ai-fundamentals', 'E', 'ai', 'Fundamentos de IA Generativa & LLMs', 'Generative AI & LLM Fundamentals'),
+  n('prompt-engineering', 'E', 'ai', 'Engenharia de Prompt', 'Prompt Engineering'),
+  n('ai-products', 'A', 'ai', 'Produtos com IA, Assistentes', 'AI-Powered Products, Assistants'),
+  n('ai-agents', 'A', 'ai', 'Agentes de IA & Automação', 'AI Agents & Automation'),
+  n('responsible-ai', 'A', 'ai', 'IA Responsável & Ética', 'Responsible AI & Ethics'),
+
+  s('project-management', 'E', 'change', 'Gerenciamento de Projetos', 'Project Management'),
+  n('dependency-management', 'E', 'change', 'Gestão de Dependências', 'Dependency Management'),
+  n('risk-management', 'A', 'change', 'Gestão de Riscos', 'Risk Management'),
+  s('change-management', 'A', 'change', 'Change Management', 'Change Management'),
 
   s('working-with-developers', 'E', 'people', 'Cultura de Time de Produto', 'Product Team Culture', 'Trabalhando com Desenvolvedores de Produto'),
   s('stakeholder-management', 'E', 'people', 'Gestão de Stakeholders', 'Stakeholder Management'),
@@ -145,17 +156,6 @@ export const SKILLS: Skill[] = [
   n('communication', 'A', 'people', 'Comunicação & Storytelling', 'Communication & Storytelling'),
   s('conflict-resolution', 'A', 'people', 'Resolução de Conflitos', 'Conflict Resolution'),
   n('leadership-influence', 'A', 'people', 'Liderança e Influência', 'Leadership & Influence'),
-
-  s('project-management', 'E', 'change', 'Gerenciamento de Projetos', 'Project Management'),
-  n('dependency-management', 'E', 'change', 'Gestão de Dependências', 'Dependency Management'),
-  n('risk-management', 'A', 'change', 'Gestão de Riscos', 'Risk Management'),
-  s('change-management', 'A', 'change', 'Change Management', 'Change Management'),
-
-  n('ai-fundamentals', 'E', 'ai', 'Fundamentos de IA Generativa & LLMs', 'Generative AI & LLM Fundamentals'),
-  n('prompt-engineering', 'E', 'ai', 'Engenharia de Prompt', 'Prompt Engineering'),
-  n('ai-products', 'A', 'ai', 'Produtos com IA, Assistentes', 'AI-Powered Products, Assistants'),
-  n('ai-agents', 'A', 'ai', 'Agentes de IA & Automação', 'AI Agents & Automation'),
-  n('responsible-ai', 'A', 'ai', 'IA Responsável & Ética', 'Responsible AI & Ethics'),
 ]
 
 export const SHEET_SKILLS = SKILLS.filter((sk) => sk.fromSheet)
