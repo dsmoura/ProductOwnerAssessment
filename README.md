@@ -63,9 +63,9 @@ src/
   Tier and area averages are recomputed, so past assessments show the new grouping too.
 - **The 31 added skills are not in the spreadsheet**, so the `.xlsx` import leaves them unrated. Older assessments
   simply have them unrated; averages ignore unrated skills.
-- **The added skills follow market research** (certifications, competency frameworks, job postings, books):
-  see [docs/pesquisa-skills-po.md](docs/pesquisa-skills-po.md). Some overlapping skills were merged (e.g. NPS with
-  CSAT & CES, Go-to-Market with Product-Led Growth); there were no users yet, so old ids are simply dropped.
+- **The added skills follow market research** (certifications, competency frameworks, job postings, books).
+  Some overlapping skills were merged (e.g. NPS with CSAT & CES, Go-to-Market with Product-Led Growth); there were
+  no users yet, so old ids are simply dropped.
 - **Scale anchors** are generic per level, not per skill.
 - **Scores are whole numbers.** Decimal scores from the spreadsheet are rounded on import.
 - **Skill names in `name.pt` must match the spreadsheet exactly**, because the importer matches rows by name.

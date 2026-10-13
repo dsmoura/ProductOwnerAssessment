@@ -22,8 +22,7 @@ There is no linter. Every push to `main` runs `npm test` and `npm run build`, th
 A client-only React 19 + TypeScript app that turns the *Self-Assessment para Product Owners©* spreadsheet (the `.xlsx`
 in the repo root) into a web app: rate skills 0–10, get a radar and progress over time. No
 backend; all data is in `localStorage`. `README.md` has the feature list and the "Decisions to review" that explain
-why the catalogue differs from the spreadsheet. `prototype/index.html` is a standalone static design prototype, not
-part of the build.
+why the catalogue differs from the spreadsheet.
 
 ## Architecture
 

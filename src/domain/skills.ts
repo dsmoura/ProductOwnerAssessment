@@ -55,7 +55,7 @@ const skill =
   })
 /** A skill from the spreadsheet (sheet "1. Assessment"): `name.pt` (or `sheetName`, when renamed) must match its row exactly. */
 const s = skill(true)
-/** A skill added by the app; docs/pesquisa-skills-po.md has the research behind these additions, merges and tiers. */
+/** A skill added by the app. */
 const n = skill(false)
 
 /** The label the xlsx import matches against. */
