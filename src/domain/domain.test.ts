@@ -20,6 +20,15 @@ describe('catalogue', () => {
     }
   })
 
+  it('lists each area as one block, in area order, with essentials before advanced', () => {
+    const areas = SKILLS.map((s) => s.domain).filter((d, i, all) => d !== all[i - 1])
+    expect(areas).toEqual([...DOMAIN_IDS])
+    for (const d of DOMAIN_IDS) {
+      const tiers = SKILLS.filter((s) => s.domain === d).map((s) => s.tier).join('')
+      expect(tiers).toMatch(/^E+A+$/)
+    }
+  })
+
   it('matches every spreadsheet skill name, and no added skill collides with a spreadsheet row', async () => {
     const rows = await readSheet(ORIGINAL, '1. Assessment')
     const names = rows.map((r) => r[1]).filter((v): v is string => typeof v === 'string')

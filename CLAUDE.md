@@ -28,9 +28,11 @@ part of the build.
 ## Architecture
 
 - **`src/domain/` is pure logic with no React** and is the only tested layer.
-  - `skills.ts` is the catalogue: `DOMAINS` (10 areas), `SHEET_SKILLS` (kept in the
-    spreadsheet's row order) + `NEW_SKILLS` = `SKILLS`, tiers `'E'` (Essential) / `'A'` (Advanced, the
-    spreadsheet's "Diferenciais"), and `LEVELS` (scale anchors).
+  - `skills.ts` is the catalogue: `DOMAIN_IDS`/`DOMAINS` (10 areas) and `SKILLS`, both written in display order
+    (the order of the rating flow, results list and radar); within an area, essentials come before advanced.
+    Skills are declared with `s()` (spreadsheet row) or `n()` (added by the app), and `SHEET_SKILLS` /
+    `NEW_SKILLS` are filters on `fromSheet`. Tiers are `'E'` (Essential) / `'A'` (Advanced, the
+    spreadsheet's "Diferenciais"), and `LEVELS` holds the scale anchors.
   - `scoring.ts` derives everything from a `Scores` map (`skillId -> 0..10`). Unrated skills are absent from the
     map and ignored by averages; tier/area averages are always recomputed from the current catalogue, so changing
     a skill's tier or area retroactively regroups old assessments.

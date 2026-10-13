@@ -43,7 +43,7 @@ Data is stored in the browser's `localStorage` only. There are no accounts or se
 ```
 src/
   domain/          pure logic, no React
-    skills.ts      45 spreadsheet skills (same order) + 33 added, 10 areas, scale anchors
+    skills.ts      78 skills in display order (45 from the spreadsheet + 33 added), 10 areas, scale anchors
     scoring.ts     averages, levels, changes
     data.ts        data model, validation, localStorage, example data
     importXlsx.ts  original spreadsheet importer
