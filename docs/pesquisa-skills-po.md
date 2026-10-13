@@ -199,6 +199,14 @@ Estratégia e Posicionamento de Produto; Product Goal & Sprint Goal (coberto pel
 - Renomeadas: Dívida Técnica passou a **Gestão de Dívida Técnica**; Método Kanban & Lean passou a
   **Lean & Método Kanban**.
 
+**Revisão de sobreposições (70 skills: 40 da planilha e 30 adicionadas; 40 Essenciais e 30 Avançadas; 9 áreas):**
+- **Lean Inception** foi fundida em Inception de Produto, que passou a **Inception de Produto / Lean Inception**.
+- Removidas por sobreposição: Desenvolvimento de Produto (Ciclo de Vida, Dual Track), Métricas de Produto (North
+  Star, Funil/AARRR, Retenção), Gestão de Backlog (Priorização, Refinement), Cost of Delay & WSJF (Priorização),
+  Gestão de Riscos e Gerenciamento de Projetos.
+- A área **Projetos & Mudança** foi removida: Gestão de Dependências foi para **Engenharia & Entrega** e Change
+  Management para **Pessoas & Liderança**.
+
 ## Considerado e não aplicado
 
 | Ideia | Decisão |

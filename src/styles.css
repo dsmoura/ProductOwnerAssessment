@@ -180,7 +180,7 @@ select, input[type='date'], input[type='text'] {
 .seg button.prev { border-color: var(--prev); border-style: dashed; }
 .seg button[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 
-/* Desktop: all 10 areas visible in a 5×2 grid. Phones: one swipeable row (see media query). */
+/* Desktop: all 9 areas visible in a 5-column grid. Phones: one swipeable row (see media query). */
 .stepper { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
 .stepper button {
   display: flex; gap: 6px; align-items: center; white-space: nowrap; min-width: 0; text-align: left;

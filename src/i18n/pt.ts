@@ -10,7 +10,7 @@ export const pt = {
   backToHome: 'Voltar ao início',
   home: {
     pitch: (n: number) =>
-      `Dê uma nota de 0 a 10 para ${n} competências em 10 áreas e receba um mapa das suas competências. Leva uns 15 minutos e tudo fica salvo só no seu navegador.`,
+      `Dê uma nota de 0 a 10 para ${n} competências em 9 áreas e receba um mapa das suas competências. Leva uns 15 minutos e tudo fica salvo só no seu navegador.`,
     start: 'Começar nova avaliação',
     continue: (n: number, total: number) => `Continuar avaliação (${n} de ${total})`,
     seeLatest: (date: string) => `Ver meu último resultado (${date})`,
@@ -18,7 +18,7 @@ export const pt = {
     howTitle: 'Como funciona',
     steps: [
       { title: 'Avalie', body: 'Uma área por vez, dê uma nota de 0 a 10 para cada competência.' },
-      { title: 'Veja o resultado', body: 'O mapa das 10 áreas e a nota de cada competência.' },
+      { title: 'Veja o resultado', body: 'O mapa das 9 áreas e a nota de cada competência.' },
       { title: 'Salve e repita', body: 'Baixe em PDF ou JSON e faça de novo daqui a alguns meses para ver sua evolução.' },
     ],
     importLink: 'Tem um backup (.json) ou a planilha original? Importe aqui',
@@ -94,7 +94,7 @@ export const pt = {
     sampleNote: 'Substitui os dados atuais pelas avaliações de exemplo. Exporte um backup antes se quiser manter os seus.',
   },
   footer:
-    'Copyright © Dionatan Moura. Todos os direitos reservados. O agrupamento em 10 áreas, o equilíbrio entre Essenciais e Avançados, as competências além das 58 da planilha original e as descrições da escala são propostas deste app.',
+    'Copyright © Dionatan Moura. Todos os direitos reservados. O agrupamento em 9 áreas, o equilíbrio entre Essenciais e Avançados, as competências além das 58 da planilha original e as descrições da escala são propostas deste app.',
   pdf: {
     download: 'Baixar relatório (PDF)',
     generating: 'Gerando PDF…',

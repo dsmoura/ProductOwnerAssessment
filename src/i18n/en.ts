@@ -12,7 +12,7 @@ export const en: Dict = {
   backToHome: 'Back to start',
   home: {
     pitch: (n) =>
-      `Rate ${n} skills across 10 areas from 0 to 10 and get a map of your skills. It takes about 15 minutes and everything stays in your browser.`,
+      `Rate ${n} skills across 9 areas from 0 to 10 and get a map of your skills. It takes about 15 minutes and everything stays in your browser.`,
     start: 'Start new assessment',
     continue: (n, total) => `Continue assessment (${n} of ${total})`,
     seeLatest: (date) => `See my latest results (${date})`,
@@ -20,7 +20,7 @@ export const en: Dict = {
     howTitle: 'How it works',
     steps: [
       { title: 'Rate', body: 'One area at a time, give each skill a score from 0 to 10.' },
-      { title: 'See your results', body: 'A map of the 10 areas and the score for each skill.' },
+      { title: 'See your results', body: 'A map of the 9 areas and the score for each skill.' },
       { title: 'Save and repeat', body: 'Download a PDF or JSON and assess again in a few months to see your progress.' },
     ],
     importLink: 'Have a backup (.json) or the original spreadsheet? Import it',
@@ -96,7 +96,7 @@ export const en: Dict = {
     sampleNote: 'Replaces your current data with the example assessments. Export a backup first if you want to keep yours.',
   },
   footer:
-    'Copyright © Dionatan Moura. All rights reserved. The 10-area grouping, the Essential/Advanced balance, the skills beyond the original spreadsheet’s 58 and the scale descriptions are this app’s proposal.',
+    'Copyright © Dionatan Moura. All rights reserved. The 9-area grouping, the Essential/Advanced balance, the skills beyond the original spreadsheet’s 58 and the scale descriptions are this app’s proposal.',
   pdf: {
     download: 'Download report (PDF)',
     generating: 'Creating PDF…',

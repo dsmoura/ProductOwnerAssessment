@@ -8,8 +8,8 @@ import { parseAssessmentRows } from './importXlsx'
 const ORIGINAL = 'Self-Assessment para Product Owners© - DionatanMoura.com.xlsx'
 
 describe('catalogue', () => {
-  it('keeps 45 of the 58 skills of the original spreadsheet and has unique ids', () => {
-    expect(SHEET_SKILLS).toHaveLength(45)
+  it('keeps 40 of the 58 skills of the original spreadsheet and has unique ids', () => {
+    expect(SHEET_SKILLS).toHaveLength(40)
     expect(new Set(SKILLS.map((s) => s.id)).size).toBe(SKILLS.length)
   })
 

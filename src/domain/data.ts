@@ -79,7 +79,7 @@ export function sampleData(): AppData {
   let seed = 7
   const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280
   const base: Record<DomainId, number> = {
-    business: 3, strategy: 5, discovery: 4, metrics: 3, backlog: 7, agile: 7, delivery: 4, ai: 2, change: 2, people: 6,
+    business: 3, strategy: 5, discovery: 4, metrics: 3, backlog: 7, agile: 7, delivery: 4, ai: 2, people: 6,
   }
   const first: Scores = {}
   const second: Scores = {}
