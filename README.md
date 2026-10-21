@@ -4,7 +4,7 @@ Web app version of the *Self-Assessment para Product Owners©* spreadsheet by Di
 ([dionatanmoura.com](https://dionatanmoura.com)). A Product Owner rates 70 skills from 0 to 10, gets a skill
 map and tracks progress across assessments.
 
-**Live app: https://dsmoura.github.io/ProductOwnerAssessment/**
+**Live app: https://po-skills.pages.dev**
 
 The original spreadsheet is kept in the repo root and is the source of truth for its 58 skills. The app keeps 39 of them (Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência, Métricas de Eficácia, Produto e Usuário, Cultura Data-Driven, Gestão de Feedback de Usuários, CNV Comunicação Não-Violenta, Desenvolvimento de Produto, Gestão de Backlog, Gerenciamento de Projetos, Sprint, Sprint Retrospective, Daily and Business Agility were dropped; Release Plan was merged into MVP, Lean Inception into Inception de Produto and Resolução de Conflitos into Negociação) and adds 31 more
 (product management, software engineering, CX & metrics, AI).
@@ -21,8 +21,8 @@ npm run build      # type-check + production build in dist/
 npm run preview    # serve dist/ at http://localhost:4173
 ```
 
-`dist/` is a static site. Every push to `main` runs the tests, builds and deploys it to GitHub Pages
-(`.github/workflows/deploy.yml`).
+`dist/` is a static site. Every push to `main` runs the tests, builds and deploys it to Cloudflare Pages
+(`.github/workflows/deploy.yml`, needs the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets).
 
 ## Features
 

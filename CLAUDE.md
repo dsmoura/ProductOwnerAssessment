@@ -13,9 +13,9 @@ npm run build        # tsc && vite build -> dist/
 npm run preview      # serve dist/ at http://localhost:4173
 ```
 
-There is no linter. Every push to `main` runs `npm test` and `npm run build`, then deploys `dist/` to GitHub Pages
-(`.github/workflows/deploy.yml`). `vite.config.ts` uses `base: './'` so the same build works at `/` and under
-`/ProductOwnerAssessment/`; keep asset URLs relative.
+There is no linter. Every push to `main` runs `npm test` and `npm run build`, then deploys `dist/` to the Cloudflare Pages
+project `po-skills` (`.github/workflows/deploy.yml`, using the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`
+repository secrets). `vite.config.ts` uses `base: './'` so the build works from any path; keep asset URLs relative.
 
 ## What this is
 
