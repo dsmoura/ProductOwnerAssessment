@@ -28,7 +28,8 @@ why the catalogue differs from the spreadsheet.
 
 - **`src/domain/` is pure logic with no React** and is the only tested layer.
   - `skills.ts` is the catalogue: `DOMAIN_IDS`/`DOMAINS` (9 areas) and `SKILLS`, both written in display order
-    (the order of the rating flow, results list and radar); within an area, essentials come before advanced.
+    (the order of the rating flow, results list and radar); within an area, essentials come before advanced,
+    and each tier is sorted by Portuguese name.
     Skills are declared with `s()` (spreadsheet row) or `n()` (added by the app), and `SHEET_SKILLS` /
     `NEW_SKILLS` are filters on `fromSheet`. Tiers are `'E'` (Essential) / `'A'` (Advanced, the
     spreadsheet's "Diferenciais"), and `LEVELS` holds the scale anchors.

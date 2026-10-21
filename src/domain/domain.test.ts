@@ -9,7 +9,7 @@ const ORIGINAL = 'Self-Assessment para Product Owners© - DionatanMoura.com.xlsx
 
 describe('catalogue', () => {
   it('keeps 39 of the 58 skills of the original spreadsheet and has unique ids', () => {
-    expect(SHEET_SKILLS).toHaveLength(39)
+    expect(SHEET_SKILLS).toHaveLength(38)
     expect(new Set(SKILLS.map((s) => s.id)).size).toBe(SKILLS.length)
   })
 

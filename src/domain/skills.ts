@@ -61,94 +61,94 @@ const n = skill(false)
 /** The label the xlsx import matches against. */
 export const sheetLabel = (skill: Skill) => skill.sheetName ?? skill.name.pt
 
-// Display order: grouped by area in DOMAIN_IDS order, essentials first, from fundamentals to applied practice, with each
-// advanced skill next to the essential it builds on. The xlsx import matches by label, so the order is free.
-// Tiers follow the spreadsheet (Diferenciais = 'A') except where an area needed both levels or by product decision: dual-track and technical-debt moved to
-// Advanced; facilitation, business-model-canvas, lean-startup, agile-testing and negotiation moved
-// to Essential. Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de Eficiência, Métricas de Eficácia,
-// Produto e Usuário, Cultura Data-Driven, Gestão de Feedback de Usuários, CNV Comunicação Não-Violenta, Desenvolvimento
-// de Produto, Gestão de Backlog, Gerenciamento de Projetos, Sprint, Sprint Retrospective, Daily and Business Agility were
-// dropped; Release Plan was merged into mvp, Lean Inception into product-inception and Resolução de Conflitos into
-// negotiation (their rows are ignored by the import).
+// Display order: grouped by area in DOMAIN_IDS order, essentials first, each tier sorted by Portuguese name. The xlsx
+// import matches by label, so the order is free.
+// Tiers follow the spreadsheet (Diferenciais = 'A') except where an area needed both levels or by product decision:
+// product-inception, mvp, dual-track and technical-debt moved to Advanced; facilitation, business-model-canvas, okrs,
+// agile-testing and negotiation moved to Essential. Management 3.0, Lean, ADKAR, Lean Change Management, Métricas de
+// Eficiência, Métricas de Eficácia, Produto e Usuário, Cultura Data-Driven, Gestão de Feedback de Usuários, CNV
+// Comunicação Não-Violenta, Desenvolvimento de Produto, Gestão de Backlog, Gerenciamento de Projetos, Sprint, Sprint
+// Retrospective, Daily, Business Agility and Release Plan were dropped; Lean Inception was merged into
+// product-inception, Entrega Contínua into devops and Resolução de Conflitos into negotiation (their rows are ignored
+// by the import).
 export const SKILLS: Skill[] = [
-  n('domain-knowledge', 'E', 'business', 'Conhecimento do Domínio de Negócio', 'Business Domain Knowledge'),
-  n('market-analysis', 'E', 'business', 'Análise de Mercado, Concorrência & Benchmarking', 'Market, Competitive Analysis & Benchmarking'),
   s('business-model-canvas', 'E', 'business', 'Business Model Canvas', 'Business Model Canvas'),
-  s('lean-startup', 'E', 'business', 'Lean Startup', 'Lean Startup'),
-  n('business-case', 'E', 'business', 'Business Case & ROI', 'Business Case & ROI'),
+  n('domain-knowledge', 'E', 'business', 'Conhecimento do Domínio de Negócio', 'Business Domain Knowledge'),
+  s('okrs', 'E', 'business', 'OKRs Objectives and Key Results', 'OKRs Objectives and Key Results'),
+  n('market-analysis', 'A', 'business', 'Análise de Mercado, Concorrência & Benchmarking', 'Market, Competitive Analysis & Benchmarking'),
+  n('business-case', 'A', 'business', 'Business Case & ROI', 'Business Case & ROI'),
+  n('go-to-market', 'A', 'business', 'Go-to-Market & Product-Led Growth', 'Go-to-Market & Product-Led Growth'),
+  s('lean-startup', 'A', 'business', 'Lean Startup', 'Lean Startup'),
   n('pricing', 'A', 'business', 'Precificação & Monetização', 'Pricing & Monetization'),
   n('unit-economics', 'A', 'business', 'Unit Economics', 'Unit Economics'),
-  n('go-to-market', 'A', 'business', 'Go-to-Market & Product-Led Growth', 'Go-to-Market & Product-Led Growth'),
-  s('okrs', 'A', 'business', 'OKRs Objectives and Key Results', 'OKRs Objectives and Key Results'),
 
   s('product-lifecycle', 'E', 'strategy', 'Ciclo de Vida de Produto', 'Product Lifecycle'),
-  s('product-vision', 'E', 'strategy', 'Visão e Estratégia de Produto', 'Product Vision & Strategy', 'Visão de Produto'),
-  s('product-inception', 'E', 'strategy', 'Inception de Produto / Lean Inception', 'Product Inception / Lean Inception', 'Inception de Produto'),
-  s('mvp', 'E', 'strategy', 'MVP & Release Plan', 'MVP & Release Plan', 'MVP Produto Mínimo Viável'),
   s('product-roadmap', 'E', 'strategy', 'Roadmap de Produto', 'Product Roadmap'),
+  s('product-vision', 'E', 'strategy', 'Visão e Estratégia de Produto', 'Product Vision & Strategy', 'Visão de Produto'),
   s('dual-track', 'A', 'strategy', 'Discovery & Delivery / Dual Track Development', 'Discovery & Delivery / Dual Track Development', 'Dual Track Development (Discovery & Delivery)'),
+  s('mvp', 'A', 'strategy', 'Estratégias MVP, POCs e Pilotos', 'MVP, POC & Pilot Strategies', 'MVP Produto Mínimo Viável'),
+  s('product-inception', 'A', 'strategy', 'Inception de Produto', 'Product Inception'),
 
-  s('ux', 'E', 'discovery', 'User eXperience', 'User eXperience'),
-  s('personas', 'E', 'discovery', 'Personas', 'Personas'),
   n('user-interviews', 'E', 'discovery', 'Entrevistas com Usuários', 'User Interviews'),
   n('hypotheses-experiments', 'E', 'discovery', 'Hipóteses & Experimentos', 'Hypotheses & Experiments'),
-  n('prototyping', 'E', 'discovery', 'Prototipação', 'Prototyping'),
-  n('usability-testing', 'E', 'discovery', 'Testes de Usabilidade', 'Usability Testing'),
-  n('jtbd', 'A', 'discovery', 'Jobs to Be Done', 'Jobs to Be Done'),
-  s('design-thinking', 'A', 'discovery', 'Design Thinking', 'Design Thinking'),
+  s('personas', 'E', 'discovery', 'Personas', 'Personas'),
+  s('ux', 'E', 'discovery', 'User eXperience', 'User eXperience'),
   s('design-sprint', 'A', 'discovery', 'Design Sprint', 'Design Sprint'),
+  s('design-thinking', 'A', 'discovery', 'Design Thinking', 'Design Thinking'),
+  n('jtbd', 'A', 'discovery', 'Jobs to Be Done', 'Jobs to Be Done'),
+  n('prototyping', 'A', 'discovery', 'Prototipação', 'Prototyping'),
+  s('ab-testing', 'A', 'discovery', 'Testes A/B', 'A/B Testing'),
+  n('usability-testing', 'A', 'discovery', 'Testes de Usabilidade', 'Usability Testing'),
 
+  n('product-analytics', 'E', 'metrics', 'Análise de Dados & Product Analytics', 'Data & Product Analytics'),
   n('customer-journey', 'E', 'metrics', 'Jornada do Cliente', 'Customer Journey'),
   n('nps', 'E', 'metrics', 'Métricas de Satisfação (NPS, CSAT, CES)', 'Satisfaction Metrics (NPS, CSAT, CES)'),
-  n('product-analytics', 'E', 'metrics', 'Análise de Dados & Product Analytics', 'Data & Product Analytics'),
-  n('north-star', 'A', 'metrics', 'North Star Metric', 'North Star Metric'),
   n('metric-frameworks', 'A', 'metrics', 'Métricas de Funil / AARRR', 'Funnel Metrics / AARRR'),
+  n('north-star', 'A', 'metrics', 'North Star Metric', 'North Star Metric'),
   n('retention-churn', 'A', 'metrics', 'Retenção, Churn & Coortes', 'Retention, Churn & Cohorts'),
-  s('ab-testing', 'A', 'metrics', 'Testes A/B', 'A/B Testing'),
 
-  s('backlog-prioritization', 'E', 'backlog', 'Técnicas de Priorização de Backlog', 'Backlog Prioritization Techniques'),
-  s('user-stories', 'E', 'backlog', 'Histórias de Usuário & INVEST', 'User Stories & INVEST', 'Histórias de Usuário'),
   s('acceptance-criteria', 'E', 'backlog', 'Critérios de Aceitação', 'Acceptance Criteria'),
-  s('dor', 'E', 'backlog', 'DoR Definition of Ready', 'DoR Definition of Ready'),
   s('dod', 'E', 'backlog', 'DoD Definition of Done', 'DoD Definition of Done'),
-  n('story-mapping', 'A', 'backlog', 'User Story Mapping', 'User Story Mapping'),
+  s('dor', 'E', 'backlog', 'DoR Definition of Ready', 'DoR Definition of Ready'),
+  s('user-stories', 'E', 'backlog', 'Histórias de Usuário & INVEST', 'User Stories & INVEST', 'Histórias de Usuário'),
+  n('nfr', 'E', 'backlog', 'Requisitos Não Funcionais', 'Non-Functional Requirements'),
+  n('requirements-elicitation', 'E', 'backlog', 'Técnicas de Elicitação de Requisitos', 'Requirements Elicitation Techniques'),
+  s('backlog-prioritization', 'E', 'backlog', 'Técnicas de Priorização de Backlog', 'Backlog Prioritization Techniques'),
   s('technical-debt', 'A', 'backlog', 'Gestão de Dívida Técnica', 'Technical Debt Management', 'Dívida Técnica'),
+  n('story-mapping', 'A', 'backlog', 'User Story Mapping', 'User Story Mapping'),
 
+  s('scrum', 'E', 'agile', 'Framework Scrum', 'Scrum Framework', 'Scrum, Valores, Pilares, Artefatos, Papéis, Eventos'),
   s('agile-manifesto', 'E', 'agile', 'Manifesto Ágil', 'Agile Manifesto'),
-  s('scrum', 'E', 'agile', 'Scrum', 'Scrum', 'Scrum, Valores, Pilares, Artefatos, Papéis, Eventos'),
   s('sprint-planning', 'E', 'agile', 'Sprint Planning', 'Sprint Planning'),
   s('backlog-refinement', 'E', 'agile', 'Sprint Refinement', 'Sprint Refinement', 'Backlog Refinement'),
   s('sprint-review', 'E', 'agile', 'Sprint Review', 'Sprint Review'),
-  s('kanban', 'A', 'agile', 'Lean & Método Kanban', 'Lean & Kanban Method', 'Método Kanban'),
-  s('planning-poker', 'A', 'agile', 'Estimativas Ágeis e Planning Poker', 'Agile Estimation & Planning Poker', 'Planning Poker'),
+  s('agile-at-scale', 'A', 'agile', 'Ágil em Escala, Scrum of Scrums, SAFe', 'Agile at Scale, Scrum of Scrums, SAFe', 'Ágil em Escala'),
   s('bdd', 'A', 'agile', 'BDD Behaviour-Driven Development', 'BDD Behaviour-Driven Development'),
-  s('agile-at-scale', 'A', 'agile', 'Ágil em Escala', 'Agile at Scale'),
+  s('planning-poker', 'A', 'agile', 'Estimativas Ágeis e Planning Poker', 'Agile Estimation & Planning Poker', 'Planning Poker'),
+  s('kanban', 'A', 'agile', 'Lean & Método Kanban', 'Lean & Kanban Method', 'Método Kanban'),
 
-  n('nfr', 'E', 'delivery', 'Requisitos Não Funcionais', 'Non-Functional Requirements'),
-  n('apis', 'E', 'delivery', 'APIs & Integrações', 'APIs & Integrations'),
-  n('security-privacy', 'E', 'delivery', 'Segurança & Privacidade', 'Security & Privacy'),
   s('agile-testing', 'E', 'delivery', 'Agile Testing', 'Agile Testing'),
+  n('apis', 'E', 'delivery', 'APIs & Integrações', 'APIs & Integrations'),
   n('dependency-management', 'E', 'delivery', 'Gestão de Dependências', 'Dependency Management'),
-  n('software-architecture', 'A', 'delivery', 'Arquitetura de Software', 'Software Architecture'),
-  s('xp', 'A', 'delivery', 'eXtreme Programming', 'eXtreme Programming'),
-  s('devops', 'A', 'delivery', 'DevOps', 'DevOps'),
-  s('continuous-delivery', 'A', 'delivery', 'Entrega Contínua', 'Continuous Delivery'),
-  s('feature-toggles', 'A', 'delivery', 'Feature Toggles', 'Feature Toggles'),
+  n('software-architecture', 'A', 'delivery', 'Arquitetura de Solução', 'Solution Architecture'),
   n('cloud', 'A', 'delivery', 'Cloud, Escalabilidade & Observabilidade', 'Cloud, Scalability & Observability'),
+  s('devops', 'A', 'delivery', 'DevOps & Entrega Contínua', 'DevOps & Continuous Delivery', 'DevOps'),
+  s('xp', 'A', 'delivery', 'eXtreme Programming', 'eXtreme Programming'),
+  s('feature-toggles', 'A', 'delivery', 'Feature Toggles', 'Feature Toggles'),
 
-  n('ai-fundamentals', 'E', 'ai', 'Fundamentos de IA Generativa & LLMs', 'Generative AI & LLM Fundamentals'),
   n('prompt-engineering', 'E', 'ai', 'Engenharia de Prompt', 'Prompt Engineering'),
-  n('ai-products', 'A', 'ai', 'Produtos com IA, Assistentes', 'AI-Powered Products, Assistants'),
+  n('ai-fundamentals', 'E', 'ai', 'IA Generativa & LLMs', 'Generative AI & LLMs'),
   n('ai-agents', 'A', 'ai', 'Agentes de IA & Automação', 'AI Agents & Automation'),
   n('responsible-ai', 'A', 'ai', 'IA Responsável & Ética', 'Responsible AI & Ethics'),
+  n('ai-products', 'A', 'ai', 'Soluções com IA, Assistentes', 'AI Solutions, Assistants'),
 
-  s('working-with-developers', 'E', 'people', 'Cultura de Time de Produto', 'Product Team Culture', 'Trabalhando com Desenvolvedores de Produto'),
-  s('stakeholder-management', 'E', 'people', 'Gestão de Stakeholders', 'Stakeholder Management'),
   s('facilitation', 'E', 'people', 'Facilitação', 'Facilitation'),
+  s('stakeholder-management', 'E', 'people', 'Gestão de Stakeholders', 'Stakeholder Management'),
+  s('working-with-developers', 'E', 'people', 'Liderança de Time de Produto', 'Product Team Leadership', 'Trabalhando com Desenvolvedores de Produto'),
   s('negotiation', 'E', 'people', 'Negociação & Resolução de Conflitos', 'Negotiation & Conflict Resolution', 'Negociação'),
-  n('communication', 'A', 'people', 'Comunicação & Storytelling', 'Communication & Storytelling'),
-  n('leadership-influence', 'A', 'people', 'Liderança e Influência', 'Leadership & Influence'),
   s('change-management', 'A', 'people', 'Change Management', 'Change Management'),
+  n('communication', 'A', 'people', 'Comunicação Assertiva', 'Assertive Communication'),
+  n('leadership-influence', 'A', 'people', 'Liderança e Influência', 'Leadership & Influence'),
 ]
 
 export const SHEET_SKILLS = SKILLS.filter((sk) => sk.fromSheet)
