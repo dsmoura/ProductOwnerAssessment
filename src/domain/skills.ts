@@ -87,6 +87,7 @@ export const SKILLS: Skill[] = [
   s('product-vision', 'E', 'strategy', 'Visão e Estratégia de Produto', 'Product Vision & Strategy', 'Visão de Produto'),
   s('dual-track', 'A', 'strategy', 'Discovery & Delivery / Dual Track Development', 'Discovery & Delivery / Dual Track Development', 'Dual Track Development (Discovery & Delivery)'),
   s('mvp', 'A', 'strategy', 'Estratégias MVP, POCs e Pilotos', 'MVP, POC & Pilot Strategies', 'MVP Produto Mínimo Viável'),
+  n('product-risk', 'A', 'strategy', 'Gestão de Riscos de Produto', 'Product Risk Management'),
   s('product-inception', 'A', 'strategy', 'Inception de Produto', 'Product Inception'),
 
   n('user-interviews', 'E', 'discovery', 'Entrevistas com Usuários', 'User Interviews'),
